@@ -1,0 +1,780 @@
+{
+  "project_uuid": "06a07109-3e3c-7bd7-8000-95368a87bd2e",
+  "source_language": "en",
+  "languages": [
+    "en",
+    "fr",
+    "es"
+  ],
+  "namespaces": {
+    "common": {
+      "nav.product": {
+        "en": "Product",
+        "fr": "Produit",
+        "es": "Producto"
+      },
+      "nav.pricing": {
+        "en": "Pricing",
+        "fr": "Tarifs",
+        "es": "Precios"
+      },
+      "nav.docs": {
+        "en": "Docs",
+        "fr": "Docs",
+        "es": "Docs"
+      },
+      "nav.signin": {
+        "en": "Sign in",
+        "fr": "Se connecter",
+        "es": "Entrar"
+      },
+      "hero.eyebrow": {
+        "en": "Translation management, dev-first",
+        "fr": "Gestion de traductions, pensée pour les devs",
+        "es": "Gestión de traducciones, hecha para devs"
+      },
+      "hero.title.line1": {
+        "en": "Ship in every language.",
+        "fr": "Livrez dans toutes les langues.",
+        "es": "Lanza en cada idioma."
+      },
+      "hero.title.line2": {
+        "en": "Catch every missing word.",
+        "fr": "Repérez chaque mot manquant.",
+        "es": "Detecta cada palabra que falta."
+      },
+      "hero.lede": {
+        "en": "Verbumia is a translation manager for product teams who treat copy like code. The SDK ships with a runtime missing-key handler that reports every untranslated string the moment a user sees a fallback — no more silent gaps in production.",
+        "fr": "Verbumia est un gestionnaire de traductions pour les équipes produit qui traitent la copie comme du code. Le SDK embarque un détecteur de clés manquantes en temps d'exécution qui remonte chaque chaîne non traduite dès qu'un utilisateur voit un fallback — fini les trous silencieux en production.",
+        "es": "Verbumia es un gestor de traducciones para equipos de producto que tratan los textos como código. El SDK incluye un detector de claves faltantes en tiempo de ejecución que reporta cada cadena sin traducir en el instante en que un usuario ve un fallback — se acabaron los huecos silenciosos en producción."
+      },
+      "hero.cta.primary": {
+        "en": "Start free",
+        "fr": "Commencer gratuitement",
+        "es": "Empieza gratis"
+      },
+      "hero.cta.secondary": {
+        "en": "Read the docs",
+        "fr": "Lire la doc",
+        "es": "Leer la documentación"
+      },
+      "hero.note": {
+        "en": "MIT-licensed SDK · MCP-native · No per-word billing",
+        "fr": "SDK sous licence MIT · MCP natif · Pas de facturation au mot",
+        "es": "SDK con licencia MIT · MCP nativo · Sin facturación por palabra"
+      },
+      "live.title": {
+        "en": "Live missing-key telemetry",
+        "fr": "Télémétrie des clés manquantes",
+        "es": "Telemetría de claves faltantes"
+      },
+      "live.subtitle": {
+        "en": "Every fallback the SDK serves is captured here in realtime.",
+        "fr": "Chaque fallback servi par le SDK est capturé ici en direct.",
+        "es": "Cada fallback que sirve el SDK se captura aquí en tiempo real."
+      },
+      "live.empty": {
+        "en": "No misses yet. Click a trigger below to see one stream in.",
+        "fr": "Aucun manque pour l'instant. Déclenchez-en un avec un bouton ci-dessous.",
+        "es": "Aún no hay faltantes. Pulsa un disparador abajo para ver uno."
+      },
+      "live.count.one": {
+        "en": "{{count}} key reported",
+        "fr": "{{count}} clé remontée",
+        "es": "{{count}} clave reportada"
+      },
+      "live.count.other": {
+        "en": "{{count}} keys reported",
+        "fr": "{{count}} clés remontées",
+        "es": "{{count}} claves reportadas"
+      },
+      "live.column.key": {
+        "en": "Key",
+        "fr": "Clé",
+        "es": "Clave"
+      },
+      "live.column.locale": {
+        "en": "Locale",
+        "fr": "Locale",
+        "es": "Locale"
+      },
+      "live.column.when": {
+        "en": "When",
+        "fr": "Quand",
+        "es": "Cuándo"
+      },
+      "live.trigger.title": {
+        "en": "Trigger a missing key",
+        "fr": "Déclencher une clé manquante",
+        "es": "Disparar una clave faltante"
+      },
+      "live.trigger.subtitle": {
+        "en": "These keys are intentionally absent from every locale.",
+        "fr": "Ces clés sont absentes de toutes les locales, exprès.",
+        "es": "Estas claves están ausentes de todos los idiomas, a propósito."
+      },
+      "live.trigger.button.legal": {
+        "en": "Render legal.gdpr.long_clause",
+        "fr": "Afficher legal.gdpr.long_clause",
+        "es": "Renderizar legal.gdpr.long_clause"
+      },
+      "live.trigger.button.checkout": {
+        "en": "Render checkout.tax.tooltip",
+        "fr": "Afficher checkout.tax.tooltip",
+        "es": "Renderizar checkout.tax.tooltip"
+      },
+      "live.trigger.button.error": {
+        "en": "Render error.payment.declined",
+        "fr": "Afficher error.payment.declined",
+        "es": "Renderizar error.payment.declined"
+      },
+      "live.trigger.button.coming": {
+        "en": "Render landing.coming_soon",
+        "fr": "Afficher landing.coming_soon",
+        "es": "Renderizar landing.coming_soon"
+      },
+      "live.flush": {
+        "en": "Flush batch now",
+        "fr": "Vider le lot maintenant",
+        "es": "Vaciar lote ahora"
+      },
+      "live.flushed": {
+        "en": "Batch dispatched ✓",
+        "fr": "Lot envoyé ✓",
+        "es": "Lote enviado ✓"
+      },
+      "scenario.play": {
+        "en": "Play scenario",
+        "fr": "Lancer le scénario",
+        "es": "Reproducir escenario"
+      },
+      "scenario.loop": {
+        "en": "Loop",
+        "fr": "Boucle",
+        "es": "Bucle"
+      },
+      "scenario.stop": {
+        "en": "Stop",
+        "fr": "Stop",
+        "es": "Detener"
+      },
+      "install.eyebrow": {
+        "en": "Drop in. Ship.",
+        "fr": "Branche. Livre.",
+        "es": "Conecta. Lanza."
+      },
+      "install.title": {
+        "en": "Two snippets and you're translating.",
+        "fr": "Deux extraits et vous traduisez.",
+        "es": "Dos fragmentos y ya traduces."
+      },
+      "features.title": {
+        "en": "Three things you won't find anywhere else",
+        "fr": "Trois choses qu'on ne trouve nulle part ailleurs",
+        "es": "Tres cosas que no encontrarás en ningún otro sitio"
+      },
+      "features.one.title": {
+        "en": "Runtime missing-key handler",
+        "fr": "Détecteur de clés manquantes en runtime",
+        "es": "Detector de claves faltantes en runtime"
+      },
+      "features.one.body": {
+        "en": "The SDK reports every miss back to your dashboard with the exact key, namespace and locale — without a CI step or a static scan.",
+        "fr": "Le SDK remonte chaque manque vers votre dashboard avec la clé exacte, le namespace et la locale — sans étape de CI, sans scan statique.",
+        "es": "El SDK reporta cada fallo a tu dashboard con la clave exacta, el namespace y el idioma — sin paso de CI, sin escaneo estático."
+      },
+      "features.two.title": {
+        "en": "MCP-native",
+        "fr": "MCP natif",
+        "es": "MCP nativo"
+      },
+      "features.two.body": {
+        "en": "Your AI agents can read, propose and merge translations through a first-class MCP server — not a bolt-on REST wrapper.",
+        "fr": "Vos agents IA peuvent lire, proposer et fusionner des traductions via un serveur MCP de première classe — pas un wrapper REST cosmétique.",
+        "es": "Tus agentes IA pueden leer, proponer y fusionar traducciones vía un servidor MCP de primera clase — no un envoltorio REST."
+      },
+      "features.three.title": {
+        "en": "Predictable pricing",
+        "fr": "Tarification prévisible",
+        "es": "Precios predecibles"
+      },
+      "features.three.body": {
+        "en": "Flat tiers from the Hobby plan onward. Unlimited languages, no per-word fees, no surprise bills the day before launch.",
+        "fr": "Paliers à prix fixe dès Hobby. Langues illimitées, aucun coût au mot, zéro mauvaise surprise la veille du lancement.",
+        "es": "Tarifas planas desde el plan Hobby. Idiomas ilimitados, sin coste por palabra, sin sorpresas la víspera del lanzamiento."
+      },
+      "pricing.title": {
+        "en": "Pricing made for shipping",
+        "fr": "Une tarification faite pour livrer",
+        "es": "Precios hechos para lanzar"
+      },
+      "pricing.subtitle": {
+        "en": "Start free. Unlock unlimited languages on every paid tier.",
+        "fr": "Commencez gratuitement. Langues illimitées dès le premier palier payant.",
+        "es": "Empieza gratis. Idiomas ilimitados desde el primer plan de pago."
+      },
+      "pricing.free.name": {
+        "en": "Free",
+        "fr": "Free",
+        "es": "Free"
+      },
+      "pricing.free.price": {
+        "en": "$0",
+        "fr": "0 $",
+        "es": "0 $"
+      },
+      "pricing.free.line1": {
+        "en": "1 project · 500 keys",
+        "fr": "1 projet · 500 clés",
+        "es": "1 proyecto · 500 claves"
+      },
+      "pricing.free.line2": {
+        "en": "3 languages · 1 user",
+        "fr": "3 langues · 1 utilisateur",
+        "es": "3 idiomas · 1 usuario"
+      },
+      "pricing.hobby.name": {
+        "en": "Hobby",
+        "fr": "Hobby",
+        "es": "Hobby"
+      },
+      "pricing.hobby.price": {
+        "en": "$9",
+        "fr": "9 $",
+        "es": "9 $"
+      },
+      "pricing.hobby.line1": {
+        "en": "1 project · 5K keys",
+        "fr": "1 projet · 5 000 clés",
+        "es": "1 proyecto · 5K claves"
+      },
+      "pricing.hobby.line2": {
+        "en": "Unlimited languages · 2 users",
+        "fr": "Langues illimitées · 2 utilisateurs",
+        "es": "Idiomas ilimitados · 2 usuarios"
+      },
+      "pricing.pro.name": {
+        "en": "Pro",
+        "fr": "Pro",
+        "es": "Pro"
+      },
+      "pricing.pro.price": {
+        "en": "$29",
+        "fr": "29 $",
+        "es": "29 $"
+      },
+      "pricing.pro.line1": {
+        "en": "Unlimited projects · 50K keys",
+        "fr": "Projets illimités · 50 000 clés",
+        "es": "Proyectos ilimitados · 50K claves"
+      },
+      "pricing.pro.line2": {
+        "en": "Unlimited languages · 5 users",
+        "fr": "Langues illimitées · 5 utilisateurs",
+        "es": "Idiomas ilimitados · 5 usuarios"
+      },
+      "pricing.team.name": {
+        "en": "Team",
+        "fr": "Team",
+        "es": "Team"
+      },
+      "pricing.team.price": {
+        "en": "$79",
+        "fr": "79 $",
+        "es": "79 $"
+      },
+      "pricing.team.line1": {
+        "en": "Unlimited everything",
+        "fr": "Tout illimité",
+        "es": "Todo ilimitado"
+      },
+      "pricing.team.line2": {
+        "en": "250K keys · unlimited users",
+        "fr": "250 000 clés · utilisateurs illimités",
+        "es": "250K claves · usuarios ilimitados"
+      },
+      "pricing.month": {
+        "en": "/ month",
+        "fr": "/ mois",
+        "es": "/ mes"
+      },
+      "pricing.cta": {
+        "en": "Choose plan",
+        "fr": "Choisir le plan",
+        "es": "Elegir plan"
+      },
+      "footer.tagline": {
+        "en": "Verbumia · words that stay in sync.",
+        "fr": "Verbumia · des mots toujours synchronisés.",
+        "es": "Verbumia · palabras siempre sincronizadas."
+      },
+      "footer.repo": {
+        "en": "Source on GitHub",
+        "fr": "Code sur GitHub",
+        "es": "Código en GitHub"
+      },
+      "footer.demo": {
+        "en": "This demo is open-source under MIT.",
+        "fr": "Cette démo est open-source sous licence MIT.",
+        "es": "Esta demo es open-source bajo licencia MIT."
+      },
+      "lang.switcher.label": {
+        "en": "Language",
+        "fr": "Langue",
+        "es": "Idioma"
+      },
+      "lang.fr": {
+        "en": "Français",
+        "fr": "Français",
+        "es": "Français"
+      },
+      "lang.en": {
+        "en": "English",
+        "fr": "English",
+        "es": "English"
+      },
+      "lang.es": {
+        "en": "Español",
+        "fr": "Español",
+        "es": "Español"
+      },
+      "panel.collapse": {
+        "en": "Collapse",
+        "fr": "Réduire",
+        "es": "Replegar"
+      },
+      "panel.expand": {
+        "en": "Expand",
+        "fr": "Déployer",
+        "es": "Expandir"
+      },
+      "panel.clear": {
+        "en": "Clear",
+        "fr": "Effacer",
+        "es": "Limpiar"
+      },
+      "nav.trivia": {
+        "en": "Play the trivia demo",
+        "fr": "Jouer à la démo quiz",
+        "es": "Jugar a la demo del quiz"
+      }
+    },
+    "quiz": {
+      "meta.title": {
+        "en": "Verbumia Trivia",
+        "fr": "Quiz Verbumia",
+        "es": "Trivia Verbumia"
+      },
+      "meta.tagline": {
+        "en": "A two-player language & localization quiz",
+        "fr": "Un quiz à deux joueurs sur les langues et la localisation",
+        "es": "Un quiz para dos jugadores sobre idiomas y localización"
+      },
+      "nav.back": {
+        "en": "Back to the demo",
+        "fr": "Retour à la démo",
+        "es": "Volver a la demo"
+      },
+      "setup.heading": {
+        "en": "Two players, one device",
+        "fr": "Deux joueurs, un seul appareil",
+        "es": "Dos jugadores, un solo dispositivo"
+      },
+      "setup.blurb": {
+        "en": "Take turns answering. Ten questions, highest score wins. Every word on screen is a Verbumia translation — rate it or suggest a better one as you play.",
+        "fr": "Répondez chacun votre tour. Dix questions, le meilleur score l’emporte. Chaque mot à l’écran est une traduction Verbumia — notez-la ou proposez-en une meilleure en jouant.",
+        "es": "Respondan por turnos. Diez preguntas, gana la puntuación más alta. Cada palabra en pantalla es una traducción de Verbumia: puntúala o sugiere una mejor mientras juegas."
+      },
+      "setup.player1.label": {
+        "en": "Player 1 name",
+        "fr": "Nom du joueur 1",
+        "es": "Nombre del jugador 1"
+      },
+      "setup.player2.label": {
+        "en": "Player 2 name",
+        "fr": "Nom du joueur 2",
+        "es": "Nombre del jugador 2"
+      },
+      "setup.player1.default": {
+        "en": "Player 1",
+        "fr": "Joueur 1",
+        "es": "Jugador 1"
+      },
+      "setup.player2.default": {
+        "en": "Player 2",
+        "fr": "Joueur 2",
+        "es": "Jugador 2"
+      },
+      "setup.start": {
+        "en": "Start the quiz",
+        "fr": "Lancer le quiz",
+        "es": "Empezar el quiz"
+      },
+      "hud.question": {
+        "en": "Question {{current}} of {{total}}",
+        "fr": "Question {{current}} sur {{total}}",
+        "es": "Pregunta {{current}} de {{total}}"
+      },
+      "hud.turn": {
+        "en": "{{name}}, your turn",
+        "fr": "{{name}}, à vous de jouer",
+        "es": "{{name}}, te toca"
+      },
+      "hud.score": {
+        "en": "{{name}} · {{score}}",
+        "fr": "{{name}} · {{score}}",
+        "es": "{{name}} · {{score}}"
+      },
+      "feedback.correct": {
+        "en": "Correct!",
+        "fr": "Bonne réponse !",
+        "es": "¡Correcto!"
+      },
+      "feedback.wrong": {
+        "en": "Not quite — the answer was “{{answer}}”.",
+        "fr": "Pas tout à fait — la réponse était « {{answer}} ».",
+        "es": "Casi — la respuesta era «{{answer}}»."
+      },
+      "action.next": {
+        "en": "Next question",
+        "fr": "Question suivante",
+        "es": "Siguiente pregunta"
+      },
+      "action.finish": {
+        "en": "See the results",
+        "fr": "Voir les résultats",
+        "es": "Ver los resultados"
+      },
+      "action.rate": {
+        "en": "Rate the translations",
+        "fr": "Noter les traductions",
+        "es": "Puntuar las traducciones"
+      },
+      "result.heading": {
+        "en": "Game over",
+        "fr": "Partie terminée",
+        "es": "Fin de la partida"
+      },
+      "result.winner": {
+        "en": "{{name}} wins!",
+        "fr": "{{name}} l’emporte !",
+        "es": "¡{{name}} gana!"
+      },
+      "result.tie": {
+        "en": "It is a tie!",
+        "fr": "Égalité !",
+        "es": "¡Empate!"
+      },
+      "result.scoreline": {
+        "en": "{{name}}: {{score}} / {{total}}",
+        "fr": "{{name}} : {{score}} / {{total}}",
+        "es": "{{name}}: {{score}} / {{total}}"
+      },
+      "result.again": {
+        "en": "Play again",
+        "fr": "Rejouer",
+        "es": "Jugar otra vez"
+      },
+      "q.1.prompt": {
+        "en": "“i18n” is shorthand for which word?",
+        "fr": "« i18n » est l’abréviation de quel mot ?",
+        "es": "«i18n» es la abreviatura de ¿qué palabra?"
+      },
+      "q.1.a.1": {
+        "en": "Internationalization",
+        "fr": "Internationalisation",
+        "es": "Internacionalización"
+      },
+      "q.1.a.2": {
+        "en": "Information",
+        "fr": "Information",
+        "es": "Información"
+      },
+      "q.1.a.3": {
+        "en": "Iteration",
+        "fr": "Itération",
+        "es": "Iteración"
+      },
+      "q.1.a.4": {
+        "en": "Integration",
+        "fr": "Intégration",
+        "es": "Integración"
+      },
+      "q.1.a.5": {
+        "en": "Instrumentation",
+        "fr": "Instrumentation",
+        "es": "Instrumentación"
+      },
+      "q.2.prompt": {
+        "en": "Which language has the most native speakers?",
+        "fr": "Quelle langue compte le plus de locuteurs natifs ?",
+        "es": "¿Qué idioma tiene más hablantes nativos?"
+      },
+      "q.2.a.1": {
+        "en": "English",
+        "fr": "Anglais",
+        "es": "Inglés"
+      },
+      "q.2.a.2": {
+        "en": "Mandarin Chinese",
+        "fr": "Mandarin",
+        "es": "Chino mandarín"
+      },
+      "q.2.a.3": {
+        "en": "Spanish",
+        "fr": "Espagnol",
+        "es": "Español"
+      },
+      "q.2.a.4": {
+        "en": "Hindi",
+        "fr": "Hindi",
+        "es": "Hindi"
+      },
+      "q.2.a.5": {
+        "en": "Arabic",
+        "fr": "Arabe",
+        "es": "Árabe"
+      },
+      "q.3.prompt": {
+        "en": "Which script is written right-to-left?",
+        "fr": "Quelle écriture se lit de droite à gauche ?",
+        "es": "¿Qué escritura se lee de derecha a izquierda?"
+      },
+      "q.3.a.1": {
+        "en": "Cyrillic",
+        "fr": "Cyrillique",
+        "es": "Cirílica"
+      },
+      "q.3.a.2": {
+        "en": "Hangul",
+        "fr": "Hangûl",
+        "es": "Hangul"
+      },
+      "q.3.a.3": {
+        "en": "Arabic",
+        "fr": "Arabe",
+        "es": "Árabe"
+      },
+      "q.3.a.4": {
+        "en": "Devanagari",
+        "fr": "Devanagari",
+        "es": "Devanagari"
+      },
+      "q.3.a.5": {
+        "en": "Latin",
+        "fr": "Latin",
+        "es": "Latina"
+      },
+      "q.4.prompt": {
+        "en": "A “locale” usually combines a language with a…",
+        "fr": "Une « locale » associe généralement une langue à…",
+        "es": "Una «locale» suele combinar un idioma con…"
+      },
+      "q.4.a.1": {
+        "en": "Font",
+        "fr": "Une police",
+        "es": "Una fuente"
+      },
+      "q.4.a.2": {
+        "en": "Region",
+        "fr": "Une région",
+        "es": "Una región"
+      },
+      "q.4.a.3": {
+        "en": "Currency",
+        "fr": "Une devise",
+        "es": "Una moneda"
+      },
+      "q.4.a.4": {
+        "en": "Browser",
+        "fr": "Un navigateur",
+        "es": "Un navegador"
+      },
+      "q.4.a.5": {
+        "en": "Time zone",
+        "fr": "Un fuseau horaire",
+        "es": "Una zona horaria"
+      },
+      "q.5.prompt": {
+        "en": "Which ISO standard defines two-letter language codes?",
+        "fr": "Quelle norme ISO définit les codes de langue à deux lettres ?",
+        "es": "¿Qué norma ISO define los códigos de idioma de dos letras?"
+      },
+      "q.5.a.1": {
+        "en": "ISO 8601",
+        "fr": "ISO 8601",
+        "es": "ISO 8601"
+      },
+      "q.5.a.2": {
+        "en": "ISO 4217",
+        "fr": "ISO 4217",
+        "es": "ISO 4217"
+      },
+      "q.5.a.3": {
+        "en": "ISO 639-1",
+        "fr": "ISO 639-1",
+        "es": "ISO 639-1"
+      },
+      "q.5.a.4": {
+        "en": "ISO 3166",
+        "fr": "ISO 3166",
+        "es": "ISO 3166"
+      },
+      "q.5.a.5": {
+        "en": "ISO 27001",
+        "fr": "ISO 27001",
+        "es": "ISO 27001"
+      },
+      "q.6.prompt": {
+        "en": "Which character encoding can represent virtually every writing system?",
+        "fr": "Quel encodage de caractères peut représenter presque tous les systèmes d’écriture ?",
+        "es": "¿Qué codificación de caracteres puede representar casi cualquier sistema de escritura?"
+      },
+      "q.6.a.1": {
+        "en": "ASCII",
+        "fr": "ASCII",
+        "es": "ASCII"
+      },
+      "q.6.a.2": {
+        "en": "Latin-1",
+        "fr": "Latin-1",
+        "es": "Latin-1"
+      },
+      "q.6.a.3": {
+        "en": "UTF-8",
+        "fr": "UTF-8",
+        "es": "UTF-8"
+      },
+      "q.6.a.4": {
+        "en": "Shift-JIS",
+        "fr": "Shift-JIS",
+        "es": "Shift-JIS"
+      },
+      "q.6.a.5": {
+        "en": "Windows-1252",
+        "fr": "Windows-1252",
+        "es": "Windows-1252"
+      },
+      "q.7.prompt": {
+        "en": "“Hola, mundo” greets the world in which language?",
+        "fr": "« Hola, mundo » salue le monde dans quelle langue ?",
+        "es": "«Hola, mundo» saluda al mundo ¿en qué idioma?"
+      },
+      "q.7.a.1": {
+        "en": "Italian",
+        "fr": "Italien",
+        "es": "Italiano"
+      },
+      "q.7.a.2": {
+        "en": "Portuguese",
+        "fr": "Portugais",
+        "es": "Portugués"
+      },
+      "q.7.a.3": {
+        "en": "Spanish",
+        "fr": "Espagnol",
+        "es": "Español"
+      },
+      "q.7.a.4": {
+        "en": "Romanian",
+        "fr": "Roumain",
+        "es": "Rumano"
+      },
+      "q.7.a.5": {
+        "en": "Catalan",
+        "fr": "Catalan",
+        "es": "Catalán"
+      },
+      "q.8.prompt": {
+        "en": "In Unicode CLDR, how many plural categories can a language have at most?",
+        "fr": "Dans le CLDR Unicode, combien de catégories de pluriel une langue peut-elle avoir au maximum ?",
+        "es": "En el CLDR de Unicode, ¿cuántas categorías de plural puede tener un idioma como máximo?"
+      },
+      "q.8.a.1": {
+        "en": "Two",
+        "fr": "Deux",
+        "es": "Dos"
+      },
+      "q.8.a.2": {
+        "en": "Four",
+        "fr": "Quatre",
+        "es": "Cuatro"
+      },
+      "q.8.a.3": {
+        "en": "Six",
+        "fr": "Six",
+        "es": "Seis"
+      },
+      "q.8.a.4": {
+        "en": "Three",
+        "fr": "Trois",
+        "es": "Tres"
+      },
+      "q.8.a.5": {
+        "en": "One",
+        "fr": "Une",
+        "es": "Una"
+      },
+      "q.9.prompt": {
+        "en": "The BCP 47 tag “pt-BR” refers to…",
+        "fr": "L’étiquette BCP 47 « pt-BR » désigne…",
+        "es": "La etiqueta BCP 47 «pt-BR» se refiere a…"
+      },
+      "q.9.a.1": {
+        "en": "Brazilian Portuguese",
+        "fr": "Le portugais brésilien",
+        "es": "Portugués brasileño"
+      },
+      "q.9.a.2": {
+        "en": "European Portuguese",
+        "fr": "Le portugais européen",
+        "es": "Portugués europeo"
+      },
+      "q.9.a.3": {
+        "en": "Basque (Brazil)",
+        "fr": "Le basque (Brésil)",
+        "es": "Euskera (Brasil)"
+      },
+      "q.9.a.4": {
+        "en": "Portuguese (Britain)",
+        "fr": "Le portugais (Grande-Bretagne)",
+        "es": "Portugués (Gran Bretaña)"
+      },
+      "q.9.a.5": {
+        "en": "Breton (Brazil)",
+        "fr": "Le breton (Brésil)",
+        "es": "Bretón (Brasil)"
+      },
+      "q.10.prompt": {
+        "en": "Which of these is a CJK language?",
+        "fr": "Laquelle de ces langues est une langue CJC ?",
+        "es": "¿Cuál de estos es un idioma CJK?"
+      },
+      "q.10.a.1": {
+        "en": "Finnish",
+        "fr": "Finnois",
+        "es": "Finés"
+      },
+      "q.10.a.2": {
+        "en": "Swahili",
+        "fr": "Swahili",
+        "es": "Suajili"
+      },
+      "q.10.a.3": {
+        "en": "Japanese",
+        "fr": "Japonais",
+        "es": "Japonés"
+      },
+      "q.10.a.4": {
+        "en": "Turkish",
+        "fr": "Turc",
+        "es": "Turco"
+      },
+      "q.10.a.5": {
+        "en": "Hungarian",
+        "fr": "Hongrois",
+        "es": "Húngaro"
+      }
+    }
+  }
+}
