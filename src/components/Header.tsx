@@ -23,7 +23,7 @@ export function Header() {
             {t("nav.docs")}
           </a>
           <a
-            href="/quiz"
+            href={`${import.meta.env.BASE_URL}quiz`}
             className="text-emerald-300 hover:text-emerald-200 transition-colors"
           >
             {t("nav.trivia")} →

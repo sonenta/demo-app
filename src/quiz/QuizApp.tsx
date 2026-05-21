@@ -26,7 +26,7 @@ export function QuizApp() {
       <Splash ready={i18n.ready} />
       <header className="sticky top-0 z-30 backdrop-blur-md bg-ink-950/75 border-b border-ink-800">
         <div className="mx-auto max-w-3xl flex items-center gap-4 px-6 h-14">
-          <a href="/" className="inline-flex" aria-label="Verbumia">
+          <a href={import.meta.env.BASE_URL} className="inline-flex" aria-label="Verbumia">
             <Brand />
           </a>
           <span className="hidden sm:inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-[0.18em] text-ink-300 px-2 py-0.5 border border-ink-700 rounded-sm">
@@ -36,7 +36,7 @@ export function QuizApp() {
           <div className="ml-auto flex items-center gap-4">
             <LangSwitcher />
             <a
-              href="/"
+              href={import.meta.env.BASE_URL}
               className="hidden sm:inline-flex items-center text-sm font-medium text-ink-300 hover:text-ink-50 transition-colors"
             >
               ← {t("nav.back")}
@@ -275,7 +275,7 @@ function Result() {
           {t("result.again")}
         </button>
         <a
-          href="/"
+          href={import.meta.env.BASE_URL}
           className="inline-flex items-center justify-center rounded-lg border border-ink-700 px-6 py-3 font-medium text-ink-100 transition-colors hover:border-ink-500"
         >
           {t("nav.back")}

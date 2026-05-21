@@ -19,10 +19,13 @@ import { feedbackPlugins } from "./quiz/feedback";
  */
 const PLUGINS = feedbackPlugins();
 
-/** True when the browser is on the trivia-showcase route. */
-const isQuizRoute = () =>
-  typeof window !== "undefined" &&
-  window.location.pathname.replace(/\/+$/, "") === "/quiz";
+/** True when the browser is on the trivia-showcase route, relative to BASE_URL. */
+const isQuizRoute = () => {
+  if (typeof window === "undefined") return false;
+  const base = import.meta.env.BASE_URL.replace(/\/+$/, "");
+  const path = window.location.pathname.replace(/\/+$/, "");
+  return path === `${base}/quiz`;
+};
 
 export function App() {
   return (
