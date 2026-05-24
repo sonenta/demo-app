@@ -1,5 +1,10 @@
 import { useEffect } from "react";
-import { VerbumiaProvider, useTranslation } from "@verbumia/react-i18next";
+import {
+  VerbumiaProvider,
+  useTranslation,
+  type VerbumiaPlugin,
+} from "@verbumia/react-i18next";
+import { verbumiaRealtime } from "@verbumia/realtime/react";
 import { Header } from "./components/Header";
 import { Hero } from "./components/Hero";
 import { LiveSection } from "./components/LiveSection";
@@ -12,12 +17,23 @@ import { Splash } from "./components/Splash";
 import { missingStore } from "./state/missing-store";
 import { QuizApp } from "./quiz/QuizApp";
 import { feedbackPlugins } from "./quiz/feedback";
+import { verbumiaRuntime } from "./lib/verbumia-runtime";
 
 /**
- * Built once at module load so the provider's one-time plugin `setup()`
- * is not re-triggered on re-render (stable array identity).
+ * Built once at module load so each plugin's one-time `setup()` is not
+ * re-triggered on re-render (stable array identity). Feedback + realtime
+ * are siblings in the same provider `plugins` array.
  */
-const PLUGINS = feedbackPlugins();
+const PLUGINS: VerbumiaPlugin[] = [
+  ...feedbackPlugins(),
+  // Realtime moved OUT of the provider core in 0.9.0 — it is now a plugin.
+  // `wsUrl` is the only required option; tokenEndpoint defaults to
+  // `${apiBase}/v1/auth/centrifugo-token` and reuses the provider token.
+  // DEV-VERSION ONLY: the plugin probes the version's dev/published state and
+  // stands down (console warning) on a published version like prod's `main`,
+  // where freshness comes from the CDN ~60s cache instead.
+  verbumiaRealtime({ wsUrl: verbumiaRuntime.realtimeWsUrl }),
+];
 
 /** True when the browser is on the trivia-showcase route, relative to BASE_URL. */
 const isQuizRoute = () => {
@@ -36,20 +52,18 @@ export function App() {
       fallbackLng="en"
       namespaces={["common", "quiz"]}
       apiBase={
-        import.meta.env.VITE_VERBUMIA_API_BASE ?? "https://api.verbumia.ca"
+        import.meta.env.VITE_VERBUMIA_API_BASE ?? "https://api.verbumia.dev"
       }
       missingHandler="send"
       flushIntervalMs={5000}
-      // Realtime is DEV-VERSION ONLY (master ruling, ltm 341): a promoted
-      // PROD version has no Centrifugo WS — freshness comes from the CDN's
-      // ~60s cache. Off by default so the Vercel prod demo runs WITHOUT a
-      // persistent WS; opt in via env only for a local/dev-version showcase.
-      // (Missing-key push still works in both modes over HTTP.)
-      liveUpdates={import.meta.env.VITE_VERBUMIA_LIVE_UPDATES === "true"}
-      centrifugoWsUrl={
-        import.meta.env.VITE_VERBUMIA_CENTRIFUGO_WS ??
-        "ws://localhost:8830/connection/websocket"
-      }
+      // Version slug + deployment env (0.9.0). The prod Vercel demo runs on
+      // the published `main` version over the CDN (env=prod, ~60s freshness,
+      // no WS). Opt into a dev version + live updates by setting
+      // VITE_VERBUMIA_VERSION + VITE_VERBUMIA_ENV=dev (see
+      // src/lib/verbumia-runtime.ts). Realtime is the @verbumia/realtime
+      // plugin in PLUGINS above (replaces the removed liveUpdates/centrifugoWsUrl).
+      version={verbumiaRuntime.version}
+      env={verbumiaRuntime.env}
       transport={(batch) => missingStore.pushBatch(batch)}
       // @verbumia/feedback attaches here as a provider plugin (frozen
       // contract c8e86de1): no 2nd context, rendered as an isolated
