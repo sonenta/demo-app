@@ -8,13 +8,19 @@ interface ImportMetaEnv {
    *  Set to `http://localhost:8820` for the LIVE feedback loop against the
    *  dev backend (demo-live-provisioning, kb sdk/demo-live-provisioning). */
   readonly VITE_VERBUMIA_API_BASE?: string;
-  /** "true" enables the SDK realtime path (Centrifugo subscribe +
-   *  translations_published cache-bust). DEV-VERSION ONLY — leave unset for
-   *  the prod Vercel demo, which runs without a persistent WS. */
-  readonly VITE_VERBUMIA_LIVE_UPDATES?: string;
-  /** Centrifugo WebSocket URL (…/connection/websocket). Only consulted when
-   *  VITE_VERBUMIA_LIVE_UPDATES=true. Falls back to localhost for local dev. */
-  readonly VITE_VERBUMIA_CENTRIFUGO_WS?: string;
+  /** Project version slug fed to <VerbumiaProvider version> (0.9.0). Defaults
+   *  to `main` (the published prod bundle). Set to a dev version slug to fetch
+   *  that version's bundles and (with env=dev) enable live updates. */
+  readonly VITE_VERBUMIA_VERSION?: string;
+  /** Deployment env fed to <VerbumiaProvider env>: `prod` (default, CDN ~60s
+   *  freshness) or `dev` (live runtime fetch; realtime-eligible). Leave unset
+   *  for the prod Vercel demo. */
+  readonly VITE_VERBUMIA_ENV?: "prod" | "dev";
+  /** Centrifugo WebSocket URL (…/connection/websocket) dialed by the
+   *  @verbumia/realtime plugin on dev versions. Defaults to the prod node
+   *  `wss://rt.verbumia.ca/connection/websocket`; the plugin stands down on
+   *  published versions regardless. */
+  readonly VITE_VERBUMIA_RT_WS?: string;
 }
 
 interface ImportMeta {
