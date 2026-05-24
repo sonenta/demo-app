@@ -52,7 +52,7 @@ export function App() {
       fallbackLng="en"
       namespaces={["common", "quiz"]}
       apiBase={
-        import.meta.env.VITE_VERBUMIA_API_BASE ?? "https://api.verbumia.ca"
+        import.meta.env.VITE_VERBUMIA_API_BASE ?? "https://api.verbumia.dev"
       }
       missingHandler="send"
       flushIntervalMs={5000}

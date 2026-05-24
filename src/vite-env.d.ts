@@ -4,7 +4,7 @@ interface ImportMetaEnv {
   /** Verbumia `missing:write` API key (vrb_live_<prefix>.<secret>). Injected
    *  at build/deploy — never committed. See .env.example. */
   readonly VITE_VERBUMIA_TOKEN: string;
-  /** Override the Verbumia API base. Unset → prod `https://api.verbumia.ca`.
+  /** Override the Verbumia API base. Unset → prod `https://api.verbumia.dev`.
    *  Set to `http://localhost:8820` for the LIVE feedback loop against the
    *  dev backend (demo-live-provisioning, kb sdk/demo-live-provisioning). */
   readonly VITE_VERBUMIA_API_BASE?: string;
