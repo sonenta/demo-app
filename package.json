@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "@verbumia/feedback": "^0.2.0",
-    "@verbumia/react-i18next": "^0.9.0",
-    "@verbumia/realtime": "^0.1.0",
+    "@verbumia/react-i18next": "^1.0.5",
+    "@verbumia/realtime": "^0.1.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
