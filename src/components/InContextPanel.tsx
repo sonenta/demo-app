@@ -81,8 +81,8 @@ export function InContextPanel() {
       </div>
 
       <p className="px-5 py-3 text-xs text-ink-300 border-b border-ink-800">
-        Paste the short code from the Verbumia editor to live-translate this page
-        in place — edits apply on screen, no reload.
+        Paste the pairing code from the Verbumia editor to live-translate this
+        page in place — edits apply on screen, no reload.
       </p>
 
       {!live ? (
@@ -90,7 +90,7 @@ export function InContextPanel() {
           <input
             value={code}
             onChange={(e) => setCode(e.target.value)}
-            placeholder="editor code"
+            placeholder="pairing code"
             autoComplete="off"
             spellCheck={false}
             aria-label="editor pairing code"

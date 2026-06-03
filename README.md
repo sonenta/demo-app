@@ -56,8 +56,8 @@ through an imperative controller.
    carries its own realtime URL + scoped sub-token (no hardcoded WS host).
 
 2. **Pair** from the UI (`src/components/InContextPanel.tsx`): the translator opens
-   in-context mode in the Verbumia dashboard, gets a short code, pastes it into the
-   box, and the panel calls:
+   in-context mode in the Verbumia dashboard, gets a pairing code (the QR's
+   `ict_` token), pastes it into the box, and the panel calls:
 
    ```ts
    await controller.pair(code, "demo-app · web");
