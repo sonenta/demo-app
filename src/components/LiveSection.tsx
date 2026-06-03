@@ -1,6 +1,7 @@
 import { MissingKeysPanel } from "./MissingKeysPanel";
 import { TriggerCard } from "./TriggerCard";
 import { RealtimeBadge } from "./RealtimeBadge";
+import { InContextPanel } from "./InContextPanel";
 
 export function LiveSection() {
   return (
@@ -9,7 +10,10 @@ export function LiveSection() {
         <RealtimeBadge />
         <div className="grid lg:grid-cols-[1.4fr_1fr] gap-10 items-start">
           <MissingKeysPanel />
-          <TriggerCard />
+          <div className="grid gap-10">
+            <TriggerCard />
+            <InContextPanel />
+          </div>
         </div>
       </div>
     </section>

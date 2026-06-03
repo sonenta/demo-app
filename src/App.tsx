@@ -5,6 +5,7 @@ import {
   type VerbumiaPlugin,
 } from "@verbumia/react-i18next";
 import { verbumiaRealtime } from "@verbumia/realtime/react";
+import { inContextPlugin } from "@verbumia/in-context/react";
 import { Header } from "./components/Header";
 import { Hero } from "./components/Hero";
 import { LiveSection } from "./components/LiveSection";
@@ -15,6 +16,7 @@ import { Footer } from "./components/Footer";
 import { ScenarioRunner } from "./components/ScenarioRunner";
 import { Splash } from "./components/Splash";
 import { missingStore } from "./state/missing-store";
+import { inContextStore } from "./state/in-context-store";
 import { QuizApp } from "./quiz/QuizApp";
 import { feedbackPlugins } from "./quiz/feedback";
 import { verbumiaRuntime } from "./lib/verbumia-runtime";
@@ -33,6 +35,20 @@ const PLUGINS: VerbumiaPlugin[] = [
   // stands down (console warning) on a published version like prod's `main`,
   // where freshness comes from the CDN ~60s cache instead.
   verbumiaRealtime({ wsUrl: verbumiaRuntime.realtimeWsUrl }),
+  // In-context (live-translate) showcase — HEADLESS plugin (same model as
+  // feedback/realtime): no extra context, no render outlet. The host owns the
+  // pairing UI (InContextPanel) and drives it via the controller handed back
+  // here. Lifecycle callbacks funnel into inContextStore so the panel can show
+  // status + a live log of edits applied in place. Reuses the provider's
+  // apiBase/projectUuid/locale; the pair response carries its own rtUrl + token.
+  inContextPlugin({
+    device: "demo-app · web",
+    onReady: (controller) => inContextStore.setController(controller),
+    onStatus: (status) => inContextStore.setStatus(status),
+    onEdit: (edit) => inContextStore.pushEdit(edit),
+    onPaired: () => inContextStore.markPaired(),
+    onSessionEnd: () => inContextStore.reset(),
+  }),
 ];
 
 /** True when the browser is on the trivia-showcase route, relative to BASE_URL. */
@@ -83,6 +99,15 @@ function Shell() {
   useEffect(() => {
     document.documentElement.lang = i18n.locale;
   }, [i18n.locale]);
+
+  // Re-report on-screen keys to a paired in-context editor as the visitor moves
+  // between sections (this SPA navigates via hash anchors). The plugin already
+  // reports on pair + on language change; this covers in-page navigation.
+  useEffect(() => {
+    const onNav = () => void inContextStore.getSnapshot().controller?.reportKeys();
+    window.addEventListener("hashchange", onNav);
+    return () => window.removeEventListener("hashchange", onNav);
+  }, []);
 
   return (
     <>
