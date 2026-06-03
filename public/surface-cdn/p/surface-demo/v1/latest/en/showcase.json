@@ -1,0 +1,13 @@
+{
+  "banner": {
+    "message": "Manage every translation, on every screen, from a single key — desktop layouts get the full descriptive copy."
+  },
+  "cta": "Get started for free",
+  "device": {
+    "$value": "Desktop",
+    "$asset": {
+      "kind": "icon",
+      "ref": "monitor"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "banner": {
+    "message": "One key, every screen — tuned per surface."
+  },
+  "device": {
+    "$value": "Tablet",
+    "$asset": {
+      "kind": "icon",
+      "ref": "tablet"
+    }
+  }
+}

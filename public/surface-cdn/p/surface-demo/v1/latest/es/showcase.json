@@ -1,0 +1,13 @@
+{
+  "banner": {
+    "message": "Gestiona cada traducción, en cada pantalla, desde una sola clave — los diseños de escritorio reciben el texto descriptivo completo."
+  },
+  "cta": "Empieza gratis",
+  "device": {
+    "$value": "Escritorio",
+    "$asset": {
+      "kind": "icon",
+      "ref": "monitor"
+    }
+  }
+}

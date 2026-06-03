@@ -1,0 +1,13 @@
+{
+  "banner": {
+    "message": "Gérez chaque traduction, sur chaque écran, depuis une seule clé — les mises en page bureau reçoivent le texte descriptif complet."
+  },
+  "cta": "Commencer gratuitement",
+  "device": {
+    "$value": "Bureau",
+    "$asset": {
+      "kind": "icon",
+      "ref": "monitor"
+    }
+  }
+}

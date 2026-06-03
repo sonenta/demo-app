@@ -14,6 +14,7 @@ import { Pricing } from "./components/Pricing";
 import { InstallSnippet } from "./components/InstallSnippet";
 import { Footer } from "./components/Footer";
 import { ScenarioRunner } from "./components/ScenarioRunner";
+import { SurfaceShowcase } from "./components/SurfaceShowcase";
 import { Splash } from "./components/Splash";
 import { missingStore } from "./state/missing-store";
 import { inContextStore } from "./state/in-context-store";
@@ -125,6 +126,7 @@ function Shell() {
           <LiveSection />
           <InstallSnippet />
           <Features />
+          <SurfaceShowcase />
           <Pricing />
         </main>
         <Footer />

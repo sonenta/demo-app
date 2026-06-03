@@ -1,0 +1,12 @@
+{
+  "banner": {
+    "message": "Une clé, chaque écran — adaptée par surface."
+  },
+  "device": {
+    "$value": "Tablette",
+    "$asset": {
+      "kind": "icon",
+      "ref": "tablet"
+    }
+  }
+}

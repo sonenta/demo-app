@@ -1,0 +1,13 @@
+{
+  "banner": {
+    "message": "One key. Every screen."
+  },
+  "cta": "Start",
+  "device": {
+    "$value": "Mobile",
+    "$asset": {
+      "kind": "icon",
+      "ref": "smartphone"
+    }
+  }
+}
