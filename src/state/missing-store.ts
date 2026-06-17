@@ -1,4 +1,4 @@
-import type { MissingKeyEvent } from "@verbumia/react-i18next";
+import type { MissingKeyEvent } from "@sonenta/react-i18next";
 
 export type MissingKeyEntry = MissingKeyEvent & { _receivedAt: number };
 

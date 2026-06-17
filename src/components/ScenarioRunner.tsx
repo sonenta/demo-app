@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useTranslation } from "@verbumia/react-i18next";
+import { useTranslation } from "@sonenta/react-i18next";
 import { scenarioStore } from "../state/scenario-store";
 import { missingStore } from "../state/missing-store";
 

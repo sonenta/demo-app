@@ -2,8 +2,8 @@
  * Quiz question metadata. The prompt and the five answers are NOT stored
  * here — they live in the `common` i18n namespace as `quiz.q.<n>.prompt`
  * and `quiz.q.<n>.a.<1..5>` so every visible string flows through the
- * Verbumia SDK (and is therefore a rate-able / suggest-able target for the
- * @verbumia/feedback plugin). Only the answer key stays in code: it must
+ * Sonenta SDK (and is therefore a rate-able / suggest-able target for the
+ * @sonenta/feedback plugin). Only the answer key stays in code: it must
  * never be translatable, and end users rating answer strings must not be
  * able to infer correctness from the locale bundle.
  */

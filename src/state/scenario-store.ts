@@ -6,7 +6,7 @@
  * missing-store and restart, so video captures get a clean reset every cycle.
  *
  * The fire callback is wired by ScenarioRunner once it's mounted inside
- * <VerbumiaProvider> (where useTranslation is available).
+ * <SonentaProvider> (where useTranslation is available).
  */
 type Listener = () => void;
 

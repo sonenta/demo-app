@@ -1,10 +1,10 @@
 import { useState, useSyncExternalStore } from "react";
 import { inContextStore } from "../state/in-context-store";
-import type { SessionStatus } from "@verbumia/in-context/react";
+import type { SessionStatus } from "@sonenta/in-context/react";
 
 /**
- * Visible affordance for the @verbumia/in-context plugin (headless — the host
- * owns this UI). The customer (a translator) opens the editor in the Verbumia
+ * Visible affordance for the @sonenta/in-context plugin (headless — the host
+ * owns this UI). The customer (a translator) opens the editor in the Sonenta
  * dashboard, gets a short pairing code, pastes it here and hits Pair; from then
  * on every edit they make in the dashboard is pushed over the session channel
  * and applied to the on-screen strings IN PLACE — no reload. The edit log below
@@ -66,7 +66,7 @@ export function InContextPanel() {
           )}
         </span>
         <h2 className="mono text-[11px] uppercase tracking-[0.18em] text-ink-50">
-          @verbumia/in-context
+          @sonenta/in-context
         </h2>
         <span
           className={[
@@ -81,7 +81,7 @@ export function InContextPanel() {
       </div>
 
       <p className="px-5 py-3 text-xs text-ink-300 border-b border-ink-800">
-        Paste the pairing code from the Verbumia editor to live-translate this
+        Paste the pairing code from the Sonenta editor to live-translate this
         page in place — edits apply on screen, no reload.
       </p>
 

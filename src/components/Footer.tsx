@@ -1,4 +1,4 @@
-import { useTranslation } from "@verbumia/react-i18next";
+import { useTranslation } from "@sonenta/react-i18next";
 import { Brand } from "./Brand";
 
 export function Footer() {
@@ -10,7 +10,7 @@ export function Footer() {
         <p className="text-ink-300 text-sm">{t("footer.tagline")}</p>
         <div className="ml-auto flex items-center gap-5 text-xs text-ink-300 mono">
           <a
-            href="https://github.com/verbumia"
+            href="https://github.com/sonenta"
             className="hover:text-ink-50 transition-colors"
           >
             {t("footer.repo")}

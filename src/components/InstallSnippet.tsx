@@ -1,20 +1,20 @@
 import { useMemo, useState } from "react";
-import { useTranslation } from "@verbumia/react-i18next";
+import { useTranslation } from "@sonenta/react-i18next";
 import { tokenizeBash, tokenizeTsx, type Token } from "../lib/highlight";
 
-const INSTALL = `npm install @verbumia/react-i18next`;
+const INSTALL = `npm install @sonenta/react-i18next`;
 
-const USAGE = `import { VerbumiaProvider, useTranslation } from "@verbumia/react-i18next";
+const USAGE = `import { SonentaProvider, useTranslation } from "@sonenta/react-i18next";
 
 function App() {
   return (
-    <VerbumiaProvider
+    <SonentaProvider
       projectId="proj_xxx"
-      apiKey={import.meta.env.VITE_VERBUMIA_KEY}
+      apiKey={import.meta.env.VITE_SONENTA_KEY}
       defaultLocale="en"
     >
       <Hero />
-    </VerbumiaProvider>
+    </SonentaProvider>
   );
 }
 

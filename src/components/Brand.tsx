@@ -9,13 +9,25 @@ export function Brand({ size = 28 }: { size?: number }) {
         className="shrink-0"
       >
         <rect width="32" height="32" rx="7" fill="#0e1015" />
-        <path
-          d="M9 9.5l5.6 12.5h2L22 9.5h-2.5l-4 9.4-3.9-9.4z"
+        <text
+          x="14.4"
+          y="24.3"
+          textAnchor="middle"
+          fontFamily="'Times New Roman', Times, Georgia, serif"
+          fontSize="25.6"
+          fontWeight="700"
           fill="#10b981"
-        />
+          stroke="#10b981"
+          strokeWidth="0.96"
+          strokeLinejoin="round"
+          paintOrder="stroke"
+        >
+          S
+        </text>
+        <circle cx="25.6" cy="22.4" r="2.24" fill="#34d399" />
       </svg>
       <span className="text-[1.05rem] font-semibold tracking-tight text-ink-50">
-        Verbumia
+        Sonenta
       </span>
     </span>
   );

@@ -1,13 +1,13 @@
-import { verbumiaRuntime, realtimeMode } from "../lib/verbumia-runtime";
+import { sonentaRuntime, realtimeMode } from "../lib/sonenta-runtime";
 
 /**
- * Language-neutral status strip for the @verbumia/realtime plugin + the
+ * Language-neutral status strip for the @sonenta/realtime plugin + the
  * provider `version` param (0.9.0). Realtime is DEV-VERSION ONLY: the prod
  * demo's published `main` version serves static CDN bundles and the plugin
  * stands down; a dev version subscribes to Centrifugo and live-reloads on
  * `translations_published`. Technical/identifier labels (kept untranslated,
  * matching the existing `live` / `loop` / `POST /v1/missing` badges) reflect
- * the configured runtime (src/lib/verbumia-runtime.ts), not a live socket.
+ * the configured runtime (src/lib/sonenta-runtime.ts), not a live socket.
  */
 export function RealtimeBadge() {
   const live = realtimeMode === "live";
@@ -26,15 +26,15 @@ export function RealtimeBadge() {
           )}
         </span>
         <span className="mono text-[10px] uppercase tracking-[0.18em] text-ink-300">
-          @verbumia/realtime
+          @sonenta/realtime
         </span>
       </span>
 
       <span className="mono text-xs text-ink-300">
-        version <span className="text-ink-50">{verbumiaRuntime.version}</span>
+        version <span className="text-ink-50">{sonentaRuntime.version}</span>
       </span>
       <span className="mono text-xs text-ink-300">
-        env <span className="text-ink-50">{verbumiaRuntime.env}</span>
+        env <span className="text-ink-50">{sonentaRuntime.env}</span>
       </span>
 
       <span aria-hidden className="text-ink-300/50">

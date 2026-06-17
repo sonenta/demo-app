@@ -1,8 +1,8 @@
 /**
- * Single integration seam for the @verbumia/feedback add-on.
+ * Single integration seam for the @sonenta/feedback add-on.
  *
- * LIVE wiring against the FROZEN v5 surface. @verbumia/feedback is a
- * PLUGIN of the @verbumia/react-i18next provider — it attaches via the
+ * LIVE wiring against the FROZEN v5 surface. @sonenta/feedback is a
+ * PLUGIN of the @sonenta/react-i18next provider — it attaches via the
  * provider's `plugins` prop, the provider runs `setup({ i18n, config })`
  * once and mounts the plugin's `render()` as an ISOLATED sibling leaf
  * (no 2nd context, no host re-render). The host opens the panel
@@ -10,8 +10,8 @@
  * SERVER-MINTED (no client groupingKey), exposed read-only as
  * `controller.client.sessionId` after ToS acceptance.
  *
- * SDK = published npm `@verbumia/react-i18next@^0.7.0` +
- * `@verbumia/feedback@^0.2.0`.
+ * SDK = published npm `@sonenta/react-i18next@^0.7.0` +
+ * `@sonenta/feedback@^0.2.0`.
  *  - v4: `tosVersion` is a build-time SDK constant — the host MUST NOT
  *    pass it; the SDK self-supplies it.
  *  - v5: RENDERED auto-scoping — the SDK builds the on-screen key
@@ -23,9 +23,9 @@
  *    chrome/nav (which is ns=common). Canonical kb spec: topic=demo
  *    sub_topic=quiz-spec (v3, seed v3 04a5d395).
  */
-import { feedbackPlugin } from "@verbumia/feedback/react";
-import type { FeedbackController } from "@verbumia/feedback/react";
-import type { VerbumiaPlugin } from "@verbumia/react-i18next";
+import { feedbackPlugin } from "@sonenta/feedback/react";
+import type { FeedbackController } from "@sonenta/feedback/react";
+import type { SonentaPlugin } from "@sonenta/react-i18next";
 
 /** Imperative panel controller delivered by the plugin (SDK-frozen). */
 export type { FeedbackController };
@@ -58,14 +58,16 @@ export const feedbackReady = {
 
 /** Host CTA entry points. Safe before the plugin binds (no-op). */
 export function openFeedbackPanel() {
-  controllerRef.current?.open();
+  // controller.open() is async since feedback 0.2.7 — fire-and-forget from the
+  // click handler (we don't block the CTA on the panel mount).
+  void controllerRef.current?.open();
 }
 export function closeFeedbackPanel() {
   controllerRef.current?.close();
 }
 
-/** The array for the VerbumiaProvider `plugins` prop. */
-export function feedbackPlugins(): VerbumiaPlugin[] {
+/** The array for the SonentaProvider `plugins` prop. */
+export function feedbackPlugins(): SonentaPlugin[] {
   const plugin = feedbackPlugin({
     // tosVersion NOT passed — v4 SDK self-supplies it.
     // No explicit `keys` — v5 SDK auto-scopes to rendered strings.
@@ -81,6 +83,6 @@ export function feedbackPlugins(): VerbumiaPlugin[] {
     },
   });
   // feedbackPlugin returns an I18nPlugin (structural mirror of
-  // VerbumiaPlugin — same name/setup/render shape).
-  return [plugin as unknown as VerbumiaPlugin];
+  // SonentaPlugin — same name/setup/render shape).
+  return [plugin as unknown as SonentaPlugin];
 }

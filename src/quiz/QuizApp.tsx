@@ -1,5 +1,5 @@
 import { useState, useSyncExternalStore } from "react";
-import { useTranslation } from "@verbumia/react-i18next";
+import { useTranslation } from "@sonenta/react-i18next";
 import { Brand } from "../components/Brand";
 import { LangSwitcher } from "../components/LangSwitcher";
 import { Splash } from "../components/Splash";
@@ -9,8 +9,8 @@ import { openFeedbackPanel, feedbackReady } from "./feedback";
 
 /**
  * The trivia showcase. Every visible string is resolved through the
- * Verbumia SDK's `t()` so it is a live rate-able / suggest-able target
- * for the @verbumia/feedback plugin. The "Rate the translations" CTA
+ * Sonenta SDK's `t()` so it is a live rate-able / suggest-able target
+ * for the @sonenta/feedback plugin. The "Rate the translations" CTA
  * drives the plugin through its imperative controller (see ./feedback).
  */
 export function QuizApp() {
@@ -26,7 +26,7 @@ export function QuizApp() {
       <Splash ready={i18n.ready} />
       <header className="sticky top-0 z-30 backdrop-blur-md bg-ink-950/75 border-b border-ink-800">
         <div className="mx-auto max-w-3xl flex items-center gap-4 px-6 h-14">
-          <a href={import.meta.env.BASE_URL} className="inline-flex" aria-label="Verbumia">
+          <a href={import.meta.env.BASE_URL} className="inline-flex" aria-label="Sonenta">
             <Brand />
           </a>
           <span className="hidden sm:inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-[0.18em] text-ink-300 px-2 py-0.5 border border-ink-700 rounded-sm">
@@ -286,7 +286,7 @@ function Result() {
 }
 
 /**
- * Fixed CTA that opens the @verbumia/feedback panel for the strings on
+ * Fixed CTA that opens the @sonenta/feedback panel for the strings on
  * screen. Hidden until the plugin binds its controller (i.e. once the
  * package is wired) so it never looks broken in the pre-publish demo.
  */

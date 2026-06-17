@@ -1,11 +1,11 @@
 // gen-surface-cdn.mjs — emit CDN-shaped surface-overlay bundles for the
-// surface-variant showcase (task #915). The @verbumia/react-i18next SDK
+// surface-variant showcase (task #915). The @sonenta/react-i18next SDK
 // (>=1.1.0) fetches surface overlays from
 //   {cdnBase}/p/{projectUuid}/{version}/latest/{locale}/{ns}.{surface}.json
 // (base = {ns}.json). The real demo CDN can't yet author surface overlays
 // (no MCP/back-end surface authoring), so the showcase serves its own
 // overlays from a demo-controlled cdnBase (public/surface-cdn/...) via a
-// dedicated, isolated VerbumiaProvider. Run: node scripts/gen-surface-cdn.mjs
+// dedicated, isolated SonentaProvider. Run: node scripts/gen-surface-cdn.mjs
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";

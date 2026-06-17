@@ -1,9 +1,9 @@
 {
-  "meta.title": "Quiz Verbumia",
+  "meta.title": "Quiz Sonenta",
   "meta.tagline": "Un quiz à deux joueurs sur les langues et la localisation",
   "nav.back": "Retour à la démo",
   "setup.heading": "Deux joueurs, un seul appareil",
-  "setup.blurb": "Répondez chacun votre tour. Dix questions, le meilleur score l’emporte. Chaque mot à l’écran est une traduction Verbumia — notez-la ou proposez-en une meilleure en jouant.",
+  "setup.blurb": "Répondez chacun votre tour. Dix questions, le meilleur score l’emporte. Chaque mot à l’écran est une traduction Sonenta — notez-la ou proposez-en une meilleure en jouant.",
   "setup.player1.label": "Nom du joueur 1",
   "setup.player2.label": "Nom du joueur 2",
   "setup.player1.default": "Joueur 1",

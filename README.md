@@ -1,8 +1,8 @@
-# Verbumia Demo
+# Sonenta Demo
 
-Live showcase of [`@verbumia/react-i18next`](https://verbumia.ca) — the i18n SDK with a runtime missing-key handler.
+Live showcase of [`@sonenta/react-i18next`](https://sonenta.com) — the i18n SDK with a runtime missing-key handler.
 
-This app is the dogfood + marketing surface for Verbumia. It runs in three languages (FR / EN / ES) and visualises the SDK's missing-key detection in realtime, on stage, on demand.
+This app is the dogfood + marketing surface for Sonenta. It runs in three languages (FR / EN / ES) and visualises the SDK's missing-key detection in realtime, on stage, on demand.
 
 ## Run
 
@@ -20,27 +20,27 @@ Open [http://localhost:5173](http://localhost:5173).
 
 ## Layout
 
-- `src/sdk/verbumia-react-i18next.tsx` — local stub of the SDK while the real package (`@verbumia/react-i18next`) is being built by the backend peer. Same public surface; one-line swap when published.
+- `src/sdk/sonenta-react-i18next.tsx` — local stub of the SDK while the real package (`@sonenta/react-i18next`) is being built by the backend peer. Same public surface; one-line swap when published.
 - `src/components/MissingKeysPanel.tsx` — the live telemetry strip that shows untranslated keys as the user clicks around.
 - `src/components/ScenarioRunner.tsx` — drives the autoplay/loop scenario via the SDK's real `t()` path (same code path as a manual click).
 - `src/state/missing-store.ts`, `src/state/scenario-store.ts` — small external stores (`useSyncExternalStore`) for the live panel and scenario state.
 - `src/components/InContextPanel.tsx`, `src/state/in-context-store.ts` — the live-translate (in-context) showcase: pairing box + live edit log. See below.
 - `public/locales/{fr,en,es}/common.json` — translation bundles, mock-served from a "CDN-shaped" path so the demo mirrors production wiring.
 
-## In-context live editing (`@verbumia/in-context`)
+## In-context live editing (`@sonenta/in-context`)
 
-The demo also showcases [`@verbumia/in-context`](https://verbumia.ca) — pair the running
+The demo also showcases [`@sonenta/in-context`](https://sonenta.com) — pair the running
 app to a translator's editor session and watch dashboard edits apply to the
 on-screen strings **in place, with no reload**.
 
-The plugin is **headless** (same model as `@verbumia/feedback` / `@verbumia/realtime`):
+The plugin is **headless** (same model as `@sonenta/feedback` / `@sonenta/realtime`):
 it owns no UI. The host (this app) provides the pairing UI and drives the plugin
 through an imperative controller.
 
 1. **Register** the plugin in the provider's `plugins[]` (`src/App.tsx`):
 
    ```tsx
-   import { inContextPlugin } from "@verbumia/in-context/react";
+   import { inContextPlugin } from "@sonenta/in-context/react";
 
    inContextPlugin({
      device: "demo-app · web",
@@ -56,7 +56,7 @@ through an imperative controller.
    carries its own realtime URL + scoped sub-token (no hardcoded WS host).
 
 2. **Pair** from the UI (`src/components/InContextPanel.tsx`): the translator opens
-   in-context mode in the Verbumia dashboard, gets a pairing code (the QR's
+   in-context mode in the Sonenta dashboard, gets a pairing code (the QR's
    `ict_` token), pastes it into the box, and the panel calls:
 
    ```ts
@@ -73,7 +73,7 @@ re-render — the `EDIT · SESSION CHANNEL` log in the panel is the proof. The p
 is intentionally language-neutral chrome (it edits the *real* `t(...)` strings
 elsewhere on the page), matching the realtime/live-status badges.
 
-## Surface variants (`@verbumia/react-i18next` ≥1.1.0)
+## Surface variants (`@sonenta/react-i18next` ≥1.1.0)
 
 The demo also showcases **surface variants** — a second resolution dimension
 layered on top of the locale chain. A *surface* (`desktop` / `tablet` /
@@ -83,7 +83,7 @@ surface's value when an overlay provides one, else the base — so one key serve
 long desktop copy and short mobile copy with no separate keys and no reload.
 
 - **Wiring** (`src/components/SurfaceShowcase.tsx`): an isolated
-  `VerbumiaProvider` with `surface="desktop"` + `surfaceBreakpoints={true}`. The
+  `SonentaProvider` with `surface="desktop"` + `surfaceBreakpoints={true}`. The
   provider maps `window.innerWidth` → surface via `matchMedia` and calls
   `setSurface` on resize. A manual `desktop/tablet/mobile` toggle (calls
   `i18n.setSurface`) lets you force a surface without resizing.

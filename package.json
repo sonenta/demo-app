@@ -1,10 +1,10 @@
 {
-  "name": "@verbumia/demo-app",
+  "name": "@sonenta/demo-app",
   "private": true,
   "version": "0.1.0",
   "type": "module",
   "license": "MIT",
-  "description": "Live showcase + dogfooding app for the @verbumia/react-i18next SDK.",
+  "description": "Live showcase + dogfooding app for the @sonenta/react-i18next SDK.",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -12,12 +12,14 @@
     "typecheck": "tsc -b --noEmit"
   },
   "dependencies": {
-    "@verbumia/feedback": "^0.2.0",
-    "@verbumia/in-context": "^0.1.1",
-    "@verbumia/react-i18next": "^1.1.0",
-    "@verbumia/realtime": "^0.1.1",
+    "@sonenta/feedback": "^1.2.0",
+    "@sonenta/in-context": "^1.1.0",
+    "@sonenta/react-i18next": "^2.4.0",
+    "@sonenta/realtime": "^1.1.0",
+    "i18next": "^26.0.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-i18next": "^17.0.0"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.0.0",

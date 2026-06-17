@@ -2,12 +2,12 @@ import type {
   EditEvent,
   InContextController,
   SessionStatus,
-} from "@verbumia/in-context/react";
+} from "@sonenta/in-context/react";
 
 /**
  * External store backing the in-context (live-translate) showcase panel.
  *
- * The `@verbumia/in-context` plugin is HEADLESS — it owns no UI. Its
+ * The `@sonenta/in-context` plugin is HEADLESS — it owns no UI. Its
  * lifecycle callbacks (onReady / onStatus / onEdit / onPaired / onSessionEnd,
  * wired in App.tsx) funnel into this module-singleton store, and
  * InContextPanel reads it via useSyncExternalStore to render the pairing box,

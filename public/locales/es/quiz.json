@@ -1,9 +1,9 @@
 {
-  "meta.title": "Trivia Verbumia",
+  "meta.title": "Trivia Sonenta",
   "meta.tagline": "Un quiz para dos jugadores sobre idiomas y localización",
   "nav.back": "Volver a la demo",
   "setup.heading": "Dos jugadores, un solo dispositivo",
-  "setup.blurb": "Respondan por turnos. Diez preguntas, gana la puntuación más alta. Cada palabra en pantalla es una traducción de Verbumia: puntúala o sugiere una mejor mientras juegas.",
+  "setup.blurb": "Respondan por turnos. Diez preguntas, gana la puntuación más alta. Cada palabra en pantalla es una traducción de Sonenta: puntúala o sugiere una mejor mientras juegas.",
   "setup.player1.label": "Nombre del jugador 1",
   "setup.player2.label": "Nombre del jugador 2",
   "setup.player1.default": "Jugador 1",

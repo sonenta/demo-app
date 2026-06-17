@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# deploy.sh — build the React demo locally and rsync dist/ to Oyenga-web.
+# deploy.sh — build the React demo locally and rsync dist/ to sonenta-web.
 #
 # Native deploy pattern (parité avec website/client-admin/scripts/deploy.sh):
-#   Box   : oyenga@Oyenga-web
-#   Root  : /data/clients/verbumia.ca/www/demos/react
-#   Layout: FLAT DOCROOT (case B) — nginx vhost verbumia.ca already has a
+#   Box   : sonenta@sonenta-web
+#   Root  : /data/clients/sonenta/sonenta.com/demos/react
+#   Layout: FLAT DOCROOT (case B) — nginx vhost sonenta.com already has a
 #           location block `/demos/react/` with try_files $uri $uri/
 #           /demos/react/index.html (SPA fallback, wired by website task α).
 #           We rsync dist/ straight into $DEPLOY_ROOT with --delete; the
@@ -29,8 +29,8 @@
 #   ./scripts/deploy.sh --dry-run       # show what would happen, do nothing
 #
 # Optional env (sane defaults below):
-#   DEPLOY_SSH_HOST   (default: oyenga@Oyenga-web)
-#   DEPLOY_ROOT       (default: /data/clients/verbumia.ca/www/demos/react)
+#   DEPLOY_SSH_HOST   (default: sonenta@sonenta-web)
+#   DEPLOY_ROOT       (default: /data/clients/sonenta/sonenta.com/demos/react)
 #
 # A deploy/.env.production.local file (gitignored) is loaded if present, in
 # case future build-time VITE_* env vars ever show up.
@@ -65,13 +65,13 @@ SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 REPO_DIR=$(cd "$SCRIPT_DIR/.." && pwd)
 cd "$REPO_DIR"
 
-if [[ ! -f package.json ]] || ! grep -q '"@verbumia/demo-app"' package.json; then
+if [[ ! -f package.json ]] || ! grep -q '"@sonenta/demo-app"' package.json; then
     echo "deploy: not in demo-app repo root (cwd=$REPO_DIR)" >&2
     exit 2
 fi
 
 # ---- preflight 1 — SSH reachability --------------------------------------
-: "${DEPLOY_SSH_HOST:=oyenga@Oyenga-web}"
+: "${DEPLOY_SSH_HOST:=sonenta@sonenta-web}"
 
 echo "==> preflight: ssh $DEPLOY_SSH_HOST"
 # BatchMode=yes: never prompt (auth must come from agent/key, not interactive).
@@ -146,7 +146,7 @@ if [[ -f "$ENV_FILE" ]]; then
 fi
 
 # ---- defaults ------------------------------------------------------------
-: "${DEPLOY_ROOT:=/data/clients/verbumia.ca/www/demos/react}"
+: "${DEPLOY_ROOT:=/data/clients/sonenta/sonenta.com/demos/react}"
 
 # ---- pick package manager ------------------------------------------------
 # Repo ships package-lock.json → npm ci.
@@ -189,7 +189,7 @@ run "rsync -avz --delete --human-readable dist/ '$DEPLOY_SSH_HOST:$DEPLOY_ROOT/'
 
 echo
 echo "Deployed."
-echo "  URL    : https://verbumia.ca/demos/react/"
+echo "  URL    : https://sonenta.com/demos/react/"
 echo "  Commit : $GIT_SHA ($GIT_BRANCH)"
 echo "  Target : $DEPLOY_SSH_HOST:$DEPLOY_ROOT"
-echo "  Stamp  : $TS (curl https://verbumia.ca/demos/react/version.txt to verify)"
+echo "  Stamp  : $TS (curl https://sonenta.com/demos/react/version.txt to verify)"

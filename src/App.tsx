@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import {
-  VerbumiaProvider,
+  SonentaProvider,
   useTranslation,
-  type VerbumiaPlugin,
-} from "@verbumia/react-i18next";
-import { verbumiaRealtime } from "@verbumia/realtime/react";
-import { inContextPlugin } from "@verbumia/in-context/react";
+  type SonentaPlugin,
+} from "@sonenta/react-i18next";
+import { sonentaRealtime } from "@sonenta/realtime/react";
+import { inContextPlugin } from "@sonenta/in-context/react";
 import { Header } from "./components/Header";
 import { Hero } from "./components/Hero";
 import { LiveSection } from "./components/LiveSection";
@@ -20,14 +20,14 @@ import { missingStore } from "./state/missing-store";
 import { inContextStore } from "./state/in-context-store";
 import { QuizApp } from "./quiz/QuizApp";
 import { feedbackPlugins } from "./quiz/feedback";
-import { verbumiaRuntime } from "./lib/verbumia-runtime";
+import { sonentaRuntime } from "./lib/sonenta-runtime";
 
 /**
  * Built once at module load so each plugin's one-time `setup()` is not
  * re-triggered on re-render (stable array identity). Feedback + realtime
  * are siblings in the same provider `plugins` array.
  */
-const PLUGINS: VerbumiaPlugin[] = [
+const PLUGINS: SonentaPlugin[] = [
   ...feedbackPlugins(),
   // Realtime moved OUT of the provider core in 0.9.0 — it is now a plugin.
   // `wsUrl` is the only required option; tokenEndpoint defaults to
@@ -35,7 +35,7 @@ const PLUGINS: VerbumiaPlugin[] = [
   // DEV-VERSION ONLY: the plugin probes the version's dev/published state and
   // stands down (console warning) on a published version like prod's `main`,
   // where freshness comes from the CDN ~60s cache instead.
-  verbumiaRealtime({ wsUrl: verbumiaRuntime.realtimeWsUrl }),
+  sonentaRealtime({ wsUrl: sonentaRuntime.realtimeWsUrl }),
   // In-context (live-translate) showcase — HEADLESS plugin (same model as
   // feedback/realtime): no extra context, no render outlet. The host owns the
   // pairing UI (InContextPanel) and drives it via the controller handed back
@@ -62,34 +62,34 @@ const isQuizRoute = () => {
 
 export function App() {
   return (
-    <VerbumiaProvider
-      token={import.meta.env.VITE_VERBUMIA_TOKEN}
+    <SonentaProvider
+      token={import.meta.env.VITE_SONENTA_TOKEN}
       projectUuid="06a07109-3e3c-7bd7-8000-95368a87bd2e"
       defaultLocale="en"
       fallbackLng="en"
       namespaces={["common", "quiz"]}
       apiBase={
-        import.meta.env.VITE_VERBUMIA_API_BASE ?? "https://api.verbumia.dev"
+        import.meta.env.VITE_SONENTA_API_BASE ?? "https://api.sonenta.dev"
       }
       missingHandler="send"
       flushIntervalMs={5000}
       // Version slug + deployment env (0.9.0). The prod Vercel demo runs on
       // the published `main` version over the CDN (env=prod, ~60s freshness,
       // no WS). Opt into a dev version + live updates by setting
-      // VITE_VERBUMIA_VERSION + VITE_VERBUMIA_ENV=dev (see
-      // src/lib/verbumia-runtime.ts). Realtime is the @verbumia/realtime
+      // VITE_SONENTA_VERSION + VITE_SONENTA_ENV=dev (see
+      // src/lib/sonenta-runtime.ts). Realtime is the @sonenta/realtime
       // plugin in PLUGINS above (replaces the removed liveUpdates/centrifugoWsUrl).
-      version={verbumiaRuntime.version}
-      env={verbumiaRuntime.env}
+      version={sonentaRuntime.version}
+      env={sonentaRuntime.env}
       transport={(batch) => missingStore.pushBatch(batch)}
-      // @verbumia/feedback attaches here as a provider plugin (frozen
+      // @sonenta/feedback attaches here as a provider plugin (frozen
       // contract c8e86de1): no 2nd context, rendered as an isolated
       // sibling leaf, opened imperatively from the quiz CTA. Wiring is
       // isolated in ./quiz/feedback.ts.
       plugins={PLUGINS}
     >
       {isQuizRoute() ? <QuizApp /> : <Shell />}
-    </VerbumiaProvider>
+    </SonentaProvider>
   );
 }
 

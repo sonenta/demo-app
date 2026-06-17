@@ -1,5 +1,5 @@
 import { useSyncExternalStore } from "react";
-import { useTranslation } from "@verbumia/react-i18next";
+import { useTranslation } from "@sonenta/react-i18next";
 import {
   scenarioStore,
   SCENARIO_KEYS,

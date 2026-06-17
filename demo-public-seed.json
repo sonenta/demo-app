@@ -44,9 +44,9 @@
         "es": "Detecta cada palabra que falta."
       },
       "hero.lede": {
-        "en": "Verbumia is a translation manager for product teams who treat copy like code. The SDK ships with a runtime missing-key handler that reports every untranslated string the moment a user sees a fallback — no more silent gaps in production.",
-        "fr": "Verbumia est un gestionnaire de traductions pour les équipes produit qui traitent la copie comme du code. Le SDK embarque un détecteur de clés manquantes en temps d'exécution qui remonte chaque chaîne non traduite dès qu'un utilisateur voit un fallback — fini les trous silencieux en production.",
-        "es": "Verbumia es un gestor de traducciones para equipos de producto que tratan los textos como código. El SDK incluye un detector de claves faltantes en tiempo de ejecución que reporta cada cadena sin traducir en el instante en que un usuario ve un fallback — se acabaron los huecos silenciosos en producción."
+        "en": "Sonenta is a translation manager for product teams who treat copy like code. The SDK ships with a runtime missing-key handler that reports every untranslated string the moment a user sees a fallback — no more silent gaps in production.",
+        "fr": "Sonenta est un gestionnaire de traductions pour les équipes produit qui traitent la copie comme du code. Le SDK embarque un détecteur de clés manquantes en temps d'exécution qui remonte chaque chaîne non traduite dès qu'un utilisateur voit un fallback — fini les trous silencieux en production.",
+        "es": "Sonenta es un gestor de traducciones para equipos de producto que tratan los textos como código. El SDK incluye un detector de claves faltantes en tiempo de ejecución que reporta cada cadena sin traducir en el instante en que un usuario ve un fallback — se acabaron los huecos silenciosos en producción."
       },
       "hero.cta.primary": {
         "en": "Start free",
@@ -304,9 +304,9 @@
         "es": "Elegir plan"
       },
       "footer.tagline": {
-        "en": "Verbumia · words that stay in sync.",
-        "fr": "Verbumia · des mots toujours synchronisés.",
-        "es": "Verbumia · palabras siempre sincronizadas."
+        "en": "Sonenta · words that stay in sync.",
+        "fr": "Sonenta · des mots toujours synchronisés.",
+        "es": "Sonenta · palabras siempre sincronizadas."
       },
       "footer.repo": {
         "en": "Source on GitHub",
@@ -361,9 +361,9 @@
     },
     "quiz": {
       "meta.title": {
-        "en": "Verbumia Trivia",
-        "fr": "Quiz Verbumia",
-        "es": "Trivia Verbumia"
+        "en": "Sonenta Trivia",
+        "fr": "Quiz Sonenta",
+        "es": "Trivia Sonenta"
       },
       "meta.tagline": {
         "en": "A two-player language & localization quiz",
@@ -381,9 +381,9 @@
         "es": "Dos jugadores, un solo dispositivo"
       },
       "setup.blurb": {
-        "en": "Take turns answering. Ten questions, highest score wins. Every word on screen is a Verbumia translation — rate it or suggest a better one as you play.",
-        "fr": "Répondez chacun votre tour. Dix questions, le meilleur score l’emporte. Chaque mot à l’écran est une traduction Verbumia — notez-la ou proposez-en une meilleure en jouant.",
-        "es": "Respondan por turnos. Diez preguntas, gana la puntuación más alta. Cada palabra en pantalla es una traducción de Verbumia: puntúala o sugiere una mejor mientras juegas."
+        "en": "Take turns answering. Ten questions, highest score wins. Every word on screen is a Sonenta translation — rate it or suggest a better one as you play.",
+        "fr": "Répondez chacun votre tour. Dix questions, le meilleur score l’emporte. Chaque mot à l’écran est une traduction Sonenta — notez-la ou proposez-en une meilleure en jouant.",
+        "es": "Respondan por turnos. Diez preguntas, gana la puntuación más alta. Cada palabra en pantalla es una traducción de Sonenta: puntúala o sugiere una mejor mientras juegas."
       },
       "setup.player1.label": {
         "en": "Player 1 name",
