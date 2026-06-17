@@ -10,7 +10,7 @@ export function Footer() {
         <p className="text-ink-300 text-sm">{t("footer.tagline")}</p>
         <div className="ml-auto flex items-center gap-5 text-xs text-ink-300 mono">
           <a
-            href="https://github.com/sonenta"
+            href="https://github.com/sonenta/demo-app"
             className="hover:text-ink-50 transition-colors"
           >
             {t("footer.repo")}
