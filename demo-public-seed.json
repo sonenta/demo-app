@@ -29,9 +29,9 @@
         "es": "Entrar"
       },
       "hero.eyebrow": {
-        "en": "Translation management, dev-first",
-        "fr": "Gestion de traductions, pensée pour les devs",
-        "es": "Gestión de traducciones, hecha para devs"
+        "en": "Adaptive content, dev-first",
+        "fr": "Contenu adaptatif, pensé pour les devs",
+        "es": "Contenido adaptativo, hecho para devs"
       },
       "hero.title.line1": {
         "en": "Ship in every language.",
@@ -44,9 +44,9 @@
         "es": "Detecta cada palabra que falta."
       },
       "hero.lede": {
-        "en": "Sonenta is a translation manager for product teams who treat copy like code. The SDK ships with a runtime missing-key handler that reports every untranslated string the moment a user sees a fallback — no more silent gaps in production.",
-        "fr": "Sonenta est un gestionnaire de traductions pour les équipes produit qui traitent la copie comme du code. Le SDK embarque un détecteur de clés manquantes en temps d'exécution qui remonte chaque chaîne non traduite dès qu'un utilisateur voit un fallback — fini les trous silencieux en production.",
-        "es": "Sonenta es un gestor de traducciones para equipos de producto que tratan los textos como código. El SDK incluye un detector de claves faltantes en tiempo de ejecución que reporta cada cadena sin traducir en el instante en que un usuario ve un fallback — se acabaron los huecos silenciosos en producción."
+        "en": "A live demo built on Sonenta — the adaptive content layer. Every label, question and result is managed in Sonenta, translated and shipped live to the CDN. Switch languages and watch it adapt.",
+        "fr": "Une démo en direct propulsée par Sonenta — la couche de contenu adaptatif. Chaque libellé, question et résultat est géré dans Sonenta, traduit et diffusé en direct via le CDN. Changez de langue et regardez le contenu s’adapter.",
+        "es": "Una demo en vivo con Sonenta — la capa de contenido adaptativo. Cada etiqueta, pregunta y resultado se gestiona en Sonenta, traducido y entregado en directo vía CDN. Cambia de idioma y míralo adaptarse."
       },
       "hero.cta.primary": {
         "en": "Start free",
@@ -304,9 +304,9 @@
         "es": "Elegir plan"
       },
       "footer.tagline": {
-        "en": "Sonenta · words that stay in sync.",
-        "fr": "Sonenta · des mots toujours synchronisés.",
-        "es": "Sonenta · palabras siempre sincronizadas."
+        "en": "Sonenta · the adaptive content layer.",
+        "fr": "Sonenta · la couche de contenu adaptatif.",
+        "es": "Sonenta · la capa de contenido adaptativo."
       },
       "footer.repo": {
         "en": "Source on GitHub",
