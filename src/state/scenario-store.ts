@@ -108,6 +108,30 @@ const tick = () => {
     const isLast = state.cursor >= SCENARIO_STEPS.length - 1;
     if (isLast) {
       if (state.mode === "looping") {
+        // ⚠️ THE LOOP IS UNPROVEN. DO NOT COPY THIS INTO ANOTHER DEMO YET.
+        //
+        // The SDK dedups missing keys on (locale, namespace, key) and its `seen`
+        // Set is never cleared, with no reachable reset — so a key is reportable
+        // ONCE per i18n instance, forever. Cycle 2 re-fires the SAME keys, and
+        // the inspector may therefore record NOTHING while this timeline happily
+        // keeps ticking. The two look identical from the outside unless you watch
+        // the PANEL rather than the scenario.
+        //
+        // This loop APPEARED to work across three cycles in local testing. That
+        // is very likely an artifact: the locale beats rotate en→fr→es, which
+        // changes the locale component of the dedup key and hands each locale a
+        // fresh reporting budget. "Three cycles" was probably just "three
+        // locales", i.e. this MASKS the SDK bug rather than escaping it. Once the
+        // locales are exhausted the panel should go dead — demo-app-svelte proved
+        // exactly that on their live looping demo.
+        //
+        // NOT YET VERIFIED, because it needs a live page: does cycle 2's `en`
+        // phase record anything at all? Nobody has run that check.
+        //
+        // The real fix is i18n.resetMissingDedup() (i18n-core ≥1.1.1), which
+        // @sonenta/react-i18next cannot reach today — it vendors its own engine
+        // copy and does not depend on i18n-core, so the API is simply absent.
+        // Wire the reset in HERE, next to resetFn(), once the SDK exposes it.
         set({ cursor: 0, nextFireAt: Date.now() + RESET_MS + TICK_MS });
         timerId = window.setTimeout(() => {
           if (resetFn) resetFn();
