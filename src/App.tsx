@@ -20,7 +20,7 @@ import { missingStore } from "./state/missing-store";
 import { inContextStore } from "./state/in-context-store";
 import { QuizApp } from "./quiz/QuizApp";
 import { feedbackPlugins } from "./quiz/feedback";
-import { sonentaRuntime } from "./lib/sonenta-runtime";
+import { realtimeMode, sonentaRuntime } from "./lib/sonenta-runtime";
 
 /**
  * Built once at module load so each plugin's one-time `setup()` is not
@@ -29,13 +29,20 @@ import { sonentaRuntime } from "./lib/sonenta-runtime";
  */
 const PLUGINS: SonentaPlugin[] = [
   ...feedbackPlugins(),
-  // Realtime moved OUT of the provider core in 0.9.0 — it is now a plugin.
-  // `wsUrl` is the only required option; tokenEndpoint defaults to
-  // `${apiBase}/v1/auth/centrifugo-token` and reuses the provider token.
-  // DEV-VERSION ONLY: the plugin probes the version's dev/published state and
-  // stands down (console warning) on a published version like prod's `main`,
-  // where freshness comes from the CDN ~60s cache instead.
-  sonentaRealtime({ wsUrl: sonentaRuntime.realtimeWsUrl }),
+  // Realtime is DEV-ONLY, so it is not in the production build at all.
+  //
+  // It is free developer tooling by locked decision: on a PUBLISHED version
+  // (prod's `main`) the channel is null and the client never subscribes, so it
+  // cannot do anything here. But it does not merely stand down quietly — it
+  // gates its socket behind an authed GET /v1/projects/{uuid}/versions/{v},
+  // which 401s on this public showcase and then FAILS SOFT (warns, carries on).
+  // So every visitor was paying a failed cross-origin authed request for a
+  // subsystem that, by design, can never function in production. `realtimeMode`
+  // is derived from build-time env, so this whole branch is statically dead in
+  // a prod build and the plugin drops out of the bundle.
+  ...(realtimeMode === "live"
+    ? [sonentaRealtime({ wsUrl: sonentaRuntime.realtimeWsUrl })]
+    : []),
   // In-context (live-translate) showcase — HEADLESS plugin (same model as
   // feedback/realtime): no extra context, no render outlet. The host owns the
   // pairing UI (InContextPanel) and drives it via the controller handed back
@@ -80,7 +87,7 @@ export function App() {
       // false) because the published CDN bundles are nested objects.
       keySeparator="."
       apiBase={
-        import.meta.env.VITE_SONENTA_API_BASE ?? "https://api.sonenta.dev"
+        import.meta.env.VITE_SONENTA_API_BASE ?? "https://api.sonenta.com"
       }
       missingHandler="send"
       flushIntervalMs={5000}
