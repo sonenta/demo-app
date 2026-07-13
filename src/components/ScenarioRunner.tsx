@@ -26,9 +26,12 @@ export function ScenarioRunner({ ready }: { ready: boolean }) {
       () => missingStore.clear(),
       // The locale beat goes through the real SDK, same as a LangSwitcher
       // click — the reel shows the product working, not a staged animation.
-      (locale) => {
-        void i18n.setLocale(locale);
-      },
+      // Returned so the scenario can AWAIT the switch: setLocale fetches the
+      // target bundle, so dwelling on a fixed timer from the call site would
+      // spend the dwell on the fetch and show the new language for a fraction
+      // of it (or not at all, on a cold bundle).
+      (locale) => i18n.setLocale(locale),
+      () => i18n.locale,
     );
   }, [t, i18n]);
 

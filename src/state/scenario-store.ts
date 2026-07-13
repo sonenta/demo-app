@@ -73,8 +73,14 @@ const set = (patch: Partial<State>) => {
 
 let fireFn: ((key: string) => void) | null = null;
 let resetFn: (() => void) | null = null;
-let setLocaleFn: ((locale: string) => void) | null = null;
+let setLocaleFn: ((locale: string) => Promise<void>) | null = null;
+let getLocaleFn: (() => string) | null = null;
 let timerId: number | null = null;
+
+/** The visitor's own language when they pressed Play. The scenario borrows the
+ *  page; it does not get to keep it. Restored when the run ends or is stopped —
+ *  otherwise someone browsing in FR who clicks Play is silently left in EN. */
+let entryLocale: string | null = null;
 
 const cancelTimer = () => {
   if (timerId != null) {
@@ -83,32 +89,48 @@ const cancelTimer = () => {
   }
 };
 
-const runStep = (step: Step) => {
+/** A locale beat is only "held" once the language has actually PAINTED.
+ *  `setLocale` is async — it fetches the target bundle — so starting the dwell
+ *  clock when we CALL it means that on a cold bundle the new language shows for
+ *  a fraction of the dwell, or the loop moves on before it renders at all. Await
+ *  the switch, then dwell. */
+const runStep = async (step: Step): Promise<void> => {
   if (step.kind === "key") fireFn?.(step.key);
-  else setLocaleFn?.(step.locale);
+  else await setLocaleFn?.(step.locale);
 };
 
 const tick = () => {
   if (state.mode === "idle") return;
   const step = SCENARIO_STEPS[state.cursor];
-  if (step) runStep(step);
-  const isLast = state.cursor >= SCENARIO_STEPS.length - 1;
-  if (isLast) {
-    if (state.mode === "looping") {
-      set({ cursor: 0, nextFireAt: Date.now() + RESET_MS + TICK_MS });
-      timerId = window.setTimeout(() => {
-        if (resetFn) resetFn();
-        timerId = window.setTimeout(tick, TICK_MS);
-      }, RESET_MS);
+  const advance = () => {
+    // Re-check: the run may have been stopped while we awaited the switch.
+    if (state.mode === "idle") return;
+    const isLast = state.cursor >= SCENARIO_STEPS.length - 1;
+    if (isLast) {
+      if (state.mode === "looping") {
+        set({ cursor: 0, nextFireAt: Date.now() + RESET_MS + TICK_MS });
+        timerId = window.setTimeout(() => {
+          if (resetFn) resetFn();
+          timerId = window.setTimeout(tick, TICK_MS);
+        }, RESET_MS);
+      } else {
+        set({ mode: "idle", cursor: 0, nextFireAt: null });
+        restoreEntryLocale();
+      }
     } else {
-      set({ mode: "idle", cursor: 0, nextFireAt: null });
+      const wait = stepDelay(step);
+      set({ cursor: state.cursor + 1, nextFireAt: Date.now() + wait });
+      timerId = window.setTimeout(tick, wait);
     }
-  } else {
-    const next = state.cursor + 1;
-    const wait = stepDelay(SCENARIO_STEPS[state.cursor]);
-    set({ cursor: next, nextFireAt: Date.now() + wait });
-    timerId = window.setTimeout(tick, wait);
-  }
+  };
+  if (!step) return advance();
+  void runStep(step).then(advance, advance);
+};
+
+const restoreEntryLocale = () => {
+  const back = entryLocale;
+  entryLocale = null;
+  if (back && getLocaleFn && getLocaleFn() !== back) void setLocaleFn?.(back);
 };
 
 export const scenarioStore = {
@@ -122,19 +144,24 @@ export const scenarioStore = {
   attach(
     fire: (key: string) => void,
     reset: () => void,
-    setLocale: (locale: string) => void,
+    setLocale: (locale: string) => Promise<void>,
+    getLocale: () => string,
   ) {
     fireFn = fire;
     resetFn = reset;
     setLocaleFn = setLocale;
+    getLocaleFn = getLocale;
   },
   start(mode: Exclude<ScenarioMode, "idle">) {
     cancelTimer();
+    // Remember where the visitor was before we borrow their page.
+    entryLocale = getLocaleFn?.() ?? null;
     set({ mode, cursor: 0, nextFireAt: Date.now() + 200 });
     timerId = window.setTimeout(tick, 200);
   },
   stop() {
     cancelTimer();
     set({ mode: "idle", cursor: 0, nextFireAt: null });
+    restoreEntryLocale();
   },
 };
