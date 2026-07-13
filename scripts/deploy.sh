@@ -163,21 +163,58 @@ else
     echo "deploy: no lockfile (need package-lock.json or pnpm-lock.yaml)" >&2; exit 2
 fi
 
-# ---- build ---------------------------------------------------------------
-echo "==> install"
-run "${INSTALL[@]}"
+# ---- build (FROM A CLEAN CHECKOUT OF $GIT_SHA, NEVER FROM THE WORKING TREE) --
+#
+# We build in a throwaway `git worktree` pinned to HEAD, not in the repo you are
+# standing in. This is not fussiness — it is the difference between "what I
+# reviewed" and "what ships".
+#
+# Building from the working tree means the artifact is NOT addressable by a
+# commit: you can only say what you THINK is live. On 2026-07-13 this repo's
+# tree happened to hold another agent's uncommitted sign-in form, and a deploy
+# would have put it on the public marketing page rendering raw, unpublished key
+# names — with a green build, a clean rsync and a 200 from the site. Nothing in
+# the pipeline would have said a word. The old --force-dirty guard was a
+# WARNING, not a gate, and a warning only works until someone reaches for the
+# flag (demo-app-vue's last prod deploy used it).
+#
+# Now stray code cannot ship even if you pass --force-dirty: the flag lets you
+# deploy with a dirty tree, but what gets BUILT is still exactly $GIT_SHA.
+BUILD_DIR=$(mktemp -d "${TMPDIR:-/tmp}/demo-app-deploy.XXXXXX")
+cleanup_worktree() {
+    git worktree remove --force "$BUILD_DIR" 2>/dev/null || rm -rf "$BUILD_DIR"
+}
+trap cleanup_worktree EXIT
+
+echo "==> clean checkout of $GIT_SHA → $BUILD_DIR"
+run "git worktree add --detach --quiet '$BUILD_DIR' '$GIT_SHA'"
+
+# Build-time secrets are gitignored, so they are NOT in the clean checkout —
+# carry them across explicitly. Without this the build silently inlines
+# `undefined` for VITE_SONENTA_TOKEN and every visitor gets
+# `Authorization: ApiKey undefined` (which is exactly what production shipped
+# until 2026-07-13, unnoticed, because the CDN still served the bundles).
+for envf in .env.production.local .env.local .env.production; do
+    if [[ -f "$REPO_DIR/$envf" ]]; then
+        echo "    carrying $envf into the clean checkout"
+        run "cp '$REPO_DIR/$envf' '$BUILD_DIR/$envf'"
+    fi
+done
+
+echo "==> install (in clean checkout)"
+run "cd '$BUILD_DIR' && ${INSTALL[*]}"
 
 echo "==> build (sha=$GIT_SHA, branch=$GIT_BRANCH)"
-run "${BUILD[@]}"
+run "cd '$BUILD_DIR' && ${BUILD[*]}"
 
-if [[ ! -d dist ]] || [[ ! -f dist/index.html ]]; then
+if [[ $DRY_RUN -eq 0 ]] && { [[ ! -d "$BUILD_DIR/dist" ]] || [[ ! -f "$BUILD_DIR/dist/index.html" ]]; }; then
     echo "deploy: dist/ missing or empty after build" >&2; exit 1
 fi
 
 # Stamp the bundle with the source commit so `curl /demos/react/version.txt`
 # confirms what's actually live.
 TS=$(date -u +%Y%m%d-%H%M%SZ)
-printf '%s\n%s\n%s\n' "$GIT_SHA" "$GIT_BRANCH" "$TS" > dist/version.txt
+run "printf '%s\n%s\n%s\n' '$GIT_SHA' '$GIT_BRANCH' '$TS' > '$BUILD_DIR/dist/version.txt'"
 
 # ---- push ----------------------------------------------------------------
 echo "==> rsync → $DEPLOY_SSH_HOST:$DEPLOY_ROOT/"
@@ -185,7 +222,7 @@ echo "==> rsync → $DEPLOY_SSH_HOST:$DEPLOY_ROOT/"
 # --delete to drop stale files from the previous build. `dist/` (note the
 # trailing slash) copies the CONTENTS of dist, not the dist/ directory.
 # No excludes — this subtree is ours.
-run "rsync -avz --delete --human-readable dist/ '$DEPLOY_SSH_HOST:$DEPLOY_ROOT/'"
+run "rsync -avz --delete --human-readable '$BUILD_DIR/dist/' '$DEPLOY_SSH_HOST:$DEPLOY_ROOT/'"
 
 echo
 echo "Deployed."
