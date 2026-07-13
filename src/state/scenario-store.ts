@@ -1,26 +1,57 @@
 /**
  * Scenario store — drives the autoplay/loop demo.
  *
- * Triggers a curated sequence of t() calls on intentionally-missing keys,
- * spaced TICK_MS apart. In loop mode, after the last key fires we clear the
- * missing-store and restart, so video captures get a clean reset every cycle.
+ * Runs a curated, ordered timeline of two kinds of beat:
+ *   - `key`    — a t() call on an intentionally-missing key, so the SDK's
+ *                missing-key handler fires and the inspector records it.
+ *   - `locale` — a real locale switch through the SDK, so the whole page
+ *                re-renders in the new language.
  *
- * The fire callback is wired by ScenarioRunner once it's mounted inside
+ * The locale beats exist because a demo of an i18n product that never
+ * switches language is a weak demo: the timeline reads "trigger fires ->
+ * keys land -> language flips -> same page, new language". Both beats go
+ * through the real SDK (t() / setLocale), exactly as a user click would —
+ * nothing here is faked for the camera.
+ *
+ * One ordered timeline rather than two parallel lists, so the beats keep a
+ * deterministic order and loop cleanly.
+ *
+ * The callbacks are wired by ScenarioRunner once it's mounted inside
  * <SonentaProvider> (where useTranslation is available).
  */
 type Listener = () => void;
 
 export type ScenarioMode = "idle" | "playing" | "looping";
 
-export const SCENARIO_KEYS = [
-  "legal.gdpr.long_clause",
-  "checkout.tax.tooltip",
-  "error.payment.declined",
-  "landing.coming_soon",
+export type Step =
+  | { kind: "key"; key: string }
+  | { kind: "locale"; locale: string };
+
+export const SCENARIO_STEPS: readonly Step[] = [
+  { kind: "key", key: "legal.gdpr.long_clause" },
+  { kind: "key", key: "checkout.tax.tooltip" },
+  { kind: "key", key: "error.payment.declined" },
+  { kind: "key", key: "landing.coming_soon" },
+  // …then show what the product is actually for.
+  { kind: "locale", locale: "fr" },
+  { kind: "locale", locale: "es" },
+  // back to the default so a loop starts from a clean, identical frame.
+  { kind: "locale", locale: "en" },
 ] as const;
 
+/** The missing keys this scenario fires (still exported for the UI list). */
+export const SCENARIO_KEYS = SCENARIO_STEPS.filter(
+  (s): s is Extract<Step, { kind: "key" }> => s.kind === "key",
+).map((s) => s.key);
+
 export const TICK_MS = 3500;
+/** Locale beats dwell a little shorter — the payoff is instant and the
+ *  viewer only needs long enough to read that the page changed language. */
+export const LOCALE_HOLD_MS = 2500;
 export const RESET_MS = 1500;
+
+const stepDelay = (s: Step | undefined) =>
+  s?.kind === "locale" ? LOCALE_HOLD_MS : TICK_MS;
 
 type State = {
   mode: ScenarioMode;
@@ -42,6 +73,7 @@ const set = (patch: Partial<State>) => {
 
 let fireFn: ((key: string) => void) | null = null;
 let resetFn: (() => void) | null = null;
+let setLocaleFn: ((locale: string) => void) | null = null;
 let timerId: number | null = null;
 
 const cancelTimer = () => {
@@ -51,11 +83,16 @@ const cancelTimer = () => {
   }
 };
 
+const runStep = (step: Step) => {
+  if (step.kind === "key") fireFn?.(step.key);
+  else setLocaleFn?.(step.locale);
+};
+
 const tick = () => {
   if (state.mode === "idle") return;
-  const key = SCENARIO_KEYS[state.cursor];
-  if (key && fireFn) fireFn(key);
-  const isLast = state.cursor >= SCENARIO_KEYS.length - 1;
+  const step = SCENARIO_STEPS[state.cursor];
+  if (step) runStep(step);
+  const isLast = state.cursor >= SCENARIO_STEPS.length - 1;
   if (isLast) {
     if (state.mode === "looping") {
       set({ cursor: 0, nextFireAt: Date.now() + RESET_MS + TICK_MS });
@@ -67,8 +104,10 @@ const tick = () => {
       set({ mode: "idle", cursor: 0, nextFireAt: null });
     }
   } else {
-    set({ cursor: state.cursor + 1, nextFireAt: Date.now() + TICK_MS });
-    timerId = window.setTimeout(tick, TICK_MS);
+    const next = state.cursor + 1;
+    const wait = stepDelay(SCENARIO_STEPS[state.cursor]);
+    set({ cursor: next, nextFireAt: Date.now() + wait });
+    timerId = window.setTimeout(tick, wait);
   }
 };
 
@@ -80,9 +119,14 @@ export const scenarioStore = {
   getSnapshot(): State {
     return state;
   },
-  attach(fire: (key: string) => void, reset: () => void) {
+  attach(
+    fire: (key: string) => void,
+    reset: () => void,
+    setLocale: (locale: string) => void,
+  ) {
     fireFn = fire;
     resetFn = reset;
+    setLocaleFn = setLocale;
   },
   start(mode: Exclude<ScenarioMode, "idle">) {
     cancelTimer();
