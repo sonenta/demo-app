@@ -67,7 +67,11 @@ export function App() {
       projectUuid="06a07109-3e3c-7bd7-8000-95368a87bd2e"
       defaultLocale="en"
       fallbackLng="en"
-      namespaces={["common", "quiz"]}
+      // Only the namespaces THIS route actually renders. `ready` is global —
+      // it waits for every listed namespace — so listing `quiz` on the landing
+      // page put a bundle nobody is about to read on the critical path of first
+      // paint. The quiz route still gets both.
+      namespaces={isQuizRoute() ? ["common", "quiz"] : ["common"]}
       // Explicit, because it is the only opt-out from the SDK's key-style
       // auto-detect: left undefined, `start()` fires an authed GET
       // /v1/projects/{uuid}/versions/{version} on every page load, which 401s
@@ -121,12 +125,11 @@ function Shell() {
     <>
       <Splash ready={i18n.ready} />
       <ScenarioRunner ready={i18n.ready} />
-      <div
-        className={[
-          "min-h-screen flex flex-col transition-opacity duration-300",
-          i18n.ready ? "opacity-100" : "opacity-0",
-        ].join(" ")}
-      >
+      {/* No `ready` gate here. Splash already covers first paint and is capped,
+          so hiding the tree behind opacity as well only meant that when the cap
+          expired there was still nothing to see. The tree renders from the
+          start; strings resolve into it. */}
+      <div className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-1">
           <Hero />

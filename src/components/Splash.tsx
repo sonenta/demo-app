@@ -1,20 +1,37 @@
 import { useEffect, useState } from "react";
 
 /**
- * First-paint cover: holds the page hidden (visually) for a beat while the
- * locale bundle loads, then fades out. We always render the page tree behind
- * it so the SDK kicks off the fetch immediately — Splash is purely cosmetic.
+ * First-paint cover: hides the page for a beat while the locale bundle loads,
+ * then fades out. We always render the page tree behind it so the SDK kicks
+ * off the fetch immediately — Splash is purely cosmetic.
+ *
+ * It is also CAPPED, and that matters more than the cosmetics. `ready` waits
+ * on a network fetch, so an uncapped splash hands the network the power to
+ * hide the entire page indefinitely: on a 2G-class connection the demo showed
+ * nothing at all for as long as we measured. A visitor cannot tell a slow app
+ * from a broken one, and they leave. After MAX_HOLD_MS we reveal the page
+ * regardless — a page with a few keys still resolving beats no page at all,
+ * and every control (including the language switcher) works meanwhile.
  */
+const MAX_HOLD_MS = 1200;
+
 export function Splash({ ready }: { ready: boolean }) {
   const [mounted, setMounted] = useState(true);
   const [fading, setFading] = useState(false);
+  const [expired, setExpired] = useState(false);
+
+  // The network never gets to hide the page for longer than this.
+  useEffect(() => {
+    const t = window.setTimeout(() => setExpired(true), MAX_HOLD_MS);
+    return () => window.clearTimeout(t);
+  }, []);
 
   useEffect(() => {
-    if (!ready || fading) return;
+    if (!(ready || expired) || fading) return;
     setFading(true);
     const t = window.setTimeout(() => setMounted(false), 320);
     return () => window.clearTimeout(t);
-  }, [ready, fading]);
+  }, [ready, expired, fading]);
 
   if (!mounted) return null;
 
