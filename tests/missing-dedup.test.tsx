@@ -7,10 +7,27 @@
  * could get a browser to settle it.
  *
  * It is written to FALSIFY MY OWN CLAIM. I reported "three clean loop cycles"
- * from the running demo; demo-app-svelte said the SDK dedups missing keys
- * forever and the panel dies after cycle 1. They were right and I was wrong —
- * and so was my own explanation of WHY I was wrong (I guessed the locale
- * rotation handed each locale a fresh reporting budget; it does not).
+ * from the running demo; demo-app-svelte said the panel dies after cycle 1.
+ * They were right and I was wrong — and so was my own explanation of WHY.
+ *
+ * THE ACTUAL MECHANISM (verified here, and it is none of the three we guessed):
+ *
+ *   i18next parks the missing key as a LITERAL value in the SOURCE language's
+ *   store — only there, not in every language. `fallbackLng` then routes every
+ *   other locale THROUGH that park, so the key resolves everywhere and the
+ *   missing handler is never called again, in any locale, for the life of the
+ *   instance. Proven below: with fallbackLng="en" a later miss in `fr` reports
+ *   NOTHING; point fallbackLng at a language with no park (e.g. "es") and the
+ *   same miss in `fr` reports normally.
+ *
+ *   The SDK's own dedup Set IS keyed on `${language}/${ns}/${key}` (so it would
+ *   happily allow the fr report) — it is simply never consulted, because
+ *   i18next never asks. Clearing that Set alone would change nothing.
+ *
+ * AND THE STING: after the park, `t()` in fr returns "legal.gdpr.long_clause" —
+ * the raw key. It LOOKS missing on screen and is NOT missing to i18next. The
+ * same park is what shadows an in-context live edit (see park-shadow.test.tsx),
+ * so the dead loop and the dead live-edit are ONE root cause, not two bugs.
  */
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, act } from "@testing-library/react";
