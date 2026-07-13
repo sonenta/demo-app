@@ -15,7 +15,7 @@
   "dependencies": {
     "@sonenta/feedback": "^1.2.0",
     "@sonenta/in-context": "^1.2.0",
-    "@sonenta/react-i18next": "^2.6.0",
+    "@sonenta/react-i18next": "^2.6.2",
     "@sonenta/realtime": "^1.2.0",
     "i18next": "^26.0.0",
     "react": "^19.0.0",

@@ -146,7 +146,7 @@ describe("missing-key dedup: what the autoplay loop actually reports", () => {
     expect(h.reported).toHaveLength(2);
   });
 
-  it("post-2.6.0 a locale change ALSO reports again — the park no longer suppresses it", async () => {
+  it("a locale change does NOT report again — the restored park suppresses it (2.6.2)", async () => {
     const h = harness();
     await h.ready();
     await h.fire("legal.gdpr.long_clause");
@@ -158,13 +158,23 @@ describe("missing-key dedup: what the autoplay loop actually reports", () => {
 
     await h.fire("legal.gdpr.long_clause");
 
-    // Note how this INVERTED with 2.6.0. Under 2.5.0 the fr miss reported
-    // NOTHING, because the flat park in `en` resolved through fallbackLng and
-    // i18next never asked again. With the park gone, i18next asks, and the dedup
-    // Set (keyed language/ns/key) allows it. So the mechanism I originally
-    // guessed — "each locale gets a fresh budget" — is FALSE for 2.5.0 and TRUE
-    // for 2.6.0. Same code, opposite answer, three hours apart.
-    expect(h.reported).toHaveLength(2);
-    expect(h.reported[1]).toBe("fr/legal.gdpr.long_clause");
+    // THIS ASSERTION HAS NOW FLIPPED THREE TIMES. Read the version before you
+    // read the expectation:
+    //
+    //   2.5.0        park FLAT, persists   -> fr resolves THROUGH it -> NO report
+    //   2.6.0/2.6.1  park removed          -> fr is genuinely missing -> REPORTS
+    //   2.6.2        park in the app's own -> fr resolves THROUGH it -> NO report
+    //                shape, persists           (and the render-loop guard is back)
+    //
+    // Suppression is not a bug here — it IS the guard. The park is what stops
+    // forceStoreRerender from re-entering, and the loop's replay is provided by
+    // resetMissingDedup() (tested above), which un-parks. A "fix" that removed
+    // the suppression removed the guard with it; that was 2.6.0, and it is why
+    // 2.6.2 puts the park back in a shape that no longer shadows edits.
+    //
+    // This is the clearest thing in the suite: A MECHANISM IS VERSION-SCOPED.
+    // A retraction, or an expectation, without a version is a future false claim.
+    expect(h.reported).toHaveLength(1);
+    expect(h.reported[0]).toBe("en/legal.gdpr.long_clause");
   });
 });
