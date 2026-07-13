@@ -28,12 +28,11 @@ describe("in-context live edit after a missing key", () => {
     ));
   });
 
-  // KNOWN BROKEN in @sonenta/react-i18next@2.5.0 (sdk's park-shadow P1), so this
-  // is `it.fails`: it PASSES while the bug exists and turns RED the moment the
-  // fix lands. That is deliberate — it is a canary, not an excuse. When this
-  // goes red, take the @sonenta/react-i18next bump (2.6.0) and flip it back to
-  // a normal `it`.
-  it.fails("repaints a live edit to a key that was previously MISSING", async () => {
+  // WAS BROKEN in 2.5.0 (sdk's park-shadow P1) and shipped to production: the
+  // missing-key inspector and the in-context panel broke each other in exactly
+  // the demo a visitor would attempt. Fixed in 2.6.0, which removes the park
+  // itself — so this is now a plain regression test, and it must stay green.
+  it("repaints a live edit to a key that was previously MISSING", async () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let api: any = null;
     function Probe() {

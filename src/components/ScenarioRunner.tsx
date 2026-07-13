@@ -23,7 +23,16 @@ export function ScenarioRunner({ ready }: { ready: boolean }) {
       (key) => {
         t(key);
       },
-      () => missingStore.clear(),
+      () => {
+        missingStore.clear();
+        // Clearing OUR panel is not enough to make the loop replay: the SDK
+        // records a missing key once per (locale, ns, key) and never asks again,
+        // so cycle 2 would re-fire the same keys and report nothing — a reel
+        // whose payoff panel is empty on every take after the first. This is the
+        // SDK's only exit, and it did not exist until @sonenta/react-i18next
+        // 2.6.0 (2.5.0 vendored an engine where the method was simply absent).
+        i18n.resetMissingDedup();
+      },
       // The locale beat goes through the real SDK, same as a LangSwitcher
       // click — the reel shows the product working, not a staged animation.
       // Returned so the scenario can AWAIT the switch: setLocale fetches the

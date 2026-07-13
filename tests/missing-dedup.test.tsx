@@ -128,7 +128,25 @@ describe("missing-key dedup: what the autoplay loop actually reports", () => {
     expect(h.reported).toHaveLength(1);
   });
 
-  it("and the dedup SURVIVES a locale change — the locale beat does not refresh it", async () => {
+  it("after resetMissingDedup() the SAME key reports again — this is what makes the loop replay", async () => {
+    const h = harness();
+    await h.ready();
+    await h.fire("legal.gdpr.long_clause");
+    expect(h.reported).toHaveLength(1);
+
+    // What the loop's reset now does (ScenarioRunner): clear our panel AND tell
+    // the SDK to forget. Clearing the panel alone never worked — the SDK simply
+    // never reported the key again.
+    await act(async () => {
+      h.api.i18n.resetMissingDedup();
+    });
+    await h.fire("legal.gdpr.long_clause");
+
+    // Cycle 2 populates. The reel finally has a payoff on every take.
+    expect(h.reported).toHaveLength(2);
+  });
+
+  it("post-2.6.0 a locale change ALSO reports again — the park no longer suppresses it", async () => {
     const h = harness();
     await h.ready();
     await h.fire("legal.gdpr.long_clause");
@@ -140,11 +158,13 @@ describe("missing-key dedup: what the autoplay loop actually reports", () => {
 
     await h.fire("legal.gdpr.long_clause");
 
-    // I had guessed the en→fr→es rotation handed each locale a fresh budget,
-    // which would have made "3 cycles" really mean "3 locales". It does not:
-    // the key is reportable ONCE per instance, full stop. My explanation was
-    // wrong even though my conclusion (svelte is right) was correct.
-    expect(h.reported).toHaveLength(1);
-    expect(h.reported[0]).toBe("en/legal.gdpr.long_clause");
+    // Note how this INVERTED with 2.6.0. Under 2.5.0 the fr miss reported
+    // NOTHING, because the flat park in `en` resolved through fallbackLng and
+    // i18next never asked again. With the park gone, i18next asks, and the dedup
+    // Set (keyed language/ns/key) allows it. So the mechanism I originally
+    // guessed — "each locale gets a fresh budget" — is FALSE for 2.5.0 and TRUE
+    // for 2.6.0. Same code, opposite answer, three hours apart.
+    expect(h.reported).toHaveLength(2);
+    expect(h.reported[1]).toBe("fr/legal.gdpr.long_clause");
   });
 });
