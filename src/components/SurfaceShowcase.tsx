@@ -55,6 +55,10 @@ export function SurfaceShowcase() {
           surfaceBreakpoints={true}
           missingHandler="off"
           disableLanguageCatalog
+          // Same reason as the root provider: without it, key-style auto-detect
+          // fires an authed /versions/ probe that 401s on this public page. The
+          // overlays are self-hosted and nested, so "." is the right value.
+          keySeparator="."
         >
           <SurfacePanel appLocale={appI18n.locale} />
         </SonentaProvider>

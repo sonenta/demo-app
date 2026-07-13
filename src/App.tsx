@@ -68,6 +68,13 @@ export function App() {
       defaultLocale="en"
       fallbackLng="en"
       namespaces={["common", "quiz"]}
+      // Explicit, because it is the only opt-out from the SDK's key-style
+      // auto-detect: left undefined, `start()` fires an authed GET
+      // /v1/projects/{uuid}/versions/{version} on every page load, which 401s
+      // on this public showcase (bundles are public, the API is not) and
+      // silently costs every visitor a failed roundtrip. Value is "." (NOT
+      // false) because the published CDN bundles are nested objects.
+      keySeparator="."
       apiBase={
         import.meta.env.VITE_SONENTA_API_BASE ?? "https://api.sonenta.dev"
       }
