@@ -68,5 +68,8 @@
   "panel.collapse": "Collapse",
   "panel.expand": "Expand",
   "panel.clear": "Clear",
-  "nav.trivia": "Play the trivia demo"
+  "nav.trivia": "Play the trivia demo",
+  "auth.email.label": "Email",
+  "auth.password.label": "Password",
+  "auth.remember_me": "Remember me"
 }

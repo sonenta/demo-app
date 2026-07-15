@@ -13,6 +13,7 @@ import { Features } from "./components/Features";
 import { Pricing } from "./components/Pricing";
 import { InstallSnippet } from "./components/InstallSnippet";
 import { Footer } from "./components/Footer";
+import { LoginForm } from "./components/LoginForm";
 import { ScenarioRunner } from "./components/ScenarioRunner";
 import { SurfaceShowcase } from "./components/SurfaceShowcase";
 import { Splash } from "./components/Splash";
@@ -145,6 +146,9 @@ function Shell() {
           <Features />
           <SurfaceShowcase />
           <Pricing />
+          <section className="py-16 px-6">
+            <LoginForm />
+          </section>
         </main>
         <Footer />
       </div>

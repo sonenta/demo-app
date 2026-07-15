@@ -68,5 +68,8 @@
   "panel.collapse": "Replegar",
   "panel.expand": "Expandir",
   "panel.clear": "Limpiar",
-  "nav.trivia": "Jugar a la demo del quiz"
+  "nav.trivia": "Jugar a la demo del quiz",
+  "auth.email.label": "Correo electrónico",
+  "auth.password.label": "Contraseña",
+  "auth.remember_me": "Recordarme"
 }

@@ -357,6 +357,21 @@
         "en": "Play the trivia demo",
         "fr": "Jouer à la démo quiz",
         "es": "Jugar a la demo del quiz"
+      },
+      "auth.email.label": {
+        "en": "Email",
+        "fr": "E-mail",
+        "es": "Correo electrónico"
+      },
+      "auth.password.label": {
+        "en": "Password",
+        "fr": "Mot de passe",
+        "es": "Contraseña"
+      },
+      "auth.remember_me": {
+        "en": "Remember me",
+        "fr": "Se souvenir de moi",
+        "es": "Recordarme"
       }
     },
     "quiz": {
